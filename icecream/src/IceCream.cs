@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -10,17 +11,6 @@ namespace icecream
 {
     public static class IceCream
     {
-        
-        public static void printCallerFileName(this object obj)
-        {
-            StackTrace st = new StackTrace(new StackFrame(1, true));
-            StackFrame sf = st.GetFrame(0);
-
-            string fileName = sf.GetFileName();
-            Console.WriteLine(fileName);
-            Console.WriteLine(Path.GetFileName(fileName));
-        }
-        
         private static bool _enabled = true;
         private static string _prefix = "\ud83c\udf67|";
 
@@ -59,57 +49,66 @@ namespace icecream
             _enabled = false;
         }
 
-        // public static string Format(params object[] args)
-        // {
-        //     if (!_enabled)
-        //     {
-        //         return string.Empty;
-        //     }
-        //
-        //     var context = GetContextInfo();
-        //     var arguments = string.Join(" - ", args);
-        //     var output = $"{_prefix} {context} - {arguments}";
-        //
-        //     return output;
-        // }
-
-        public static string format<T>(this T value, string label = "", [CallerMemberName] string memberName = "",
+        public static string Format<T>(this T value, string label = "", [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0)
         {
             if (!_enabled)
             {
                 return string.Empty;
             }
-
-            var valueStr = string.Empty;
-            try
-            {
-                valueStr = ArgToStringFunction(value);
-            }
-            catch (Exception e)
-            {
-                valueStr = "ArgToStringFunction failed to serialize value, error: " + e;
-            }
-            
-            var timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
-            var filePath = _contextAbsPath ? GetAbsoluteFilePath() : GetRelativeFilePath();
-            var context = $"{filePath}:{lineNumber} in {memberName}() at {timestamp}";
-            var output = !string.IsNullOrEmpty(label)
-                ? $"{_prefix} {context} - {label}: {valueStr}"
-                : $"{_prefix} {context} - {valueStr}";
+        
+            var contextPart = BuildContext(memberName, lineNumber);
+            var labelPart = !string.IsNullOrEmpty(label) ? $"{label}: " : string.Empty;
+            var prefix = _prefix == "\ud83c\udf67|" ? "ic|" : _prefix;
+            var output = $"{prefix} {contextPart}{labelPart}{GetNativeValues(value)}";
             return output;
         }
 
-        
+        private static string BuildContext(string memberName = "", int lineNumber = 0)
+        {
+            if (!_includeContext) return string.Empty;
+            var timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
+            var filePath = _contextAbsPath ? GetAbsoluteFilePath() : GetRelativeFilePath();
+            var context = $"{filePath}:{lineNumber} in {memberName}() at {timestamp} - ";
+            return context;
+        }
+
+        private static string GetNativeValues<T>(T value)
+        {
+            string values;
+            try
+            {
+                values = ArgToStringFunction(value);
+            }
+            catch (Exception e)
+            {
+                values = "ArgToStringFunction failed to serialize value, error: " + e;
+            }
+            return values;
+        }
+
+        private static IEnumerable<(ConsoleColor?, string)> GetValuesWithColor<T>(T value)
+        {
+            var values = GetNativeValues(value);
+            return Coloring.ConvertJsonIntoList(values);
+        }
+
         public static T ic<T>(this T value, string label = "", [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0)
         {
+            if (!_enabled)
+            {
+                return value;
+            }
+
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
-            var output = format(value, label, memberName, lineNumber);
+            var contextPart = BuildContext(memberName, lineNumber);
+            var labelPart = !string.IsNullOrEmpty(label) ? $"{label}: " : string.Empty;
 
             if (OutputFunction != null)
             {
+                var output = $"{_prefix} {contextPart}{labelPart}{GetNativeValues(value)}";               
                 try
                 {
                     OutputFunction(output);
@@ -121,7 +120,17 @@ namespace icecream
             }
             else
             {
-                Console.WriteLine(output);
+                Console.Write($"{_prefix} {contextPart}");
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.Write(labelPart);
+                Console.ResetColor();
+                foreach (var (color, text) in GetValuesWithColor(value))
+                {
+                    Console.ForegroundColor = color ?? Console.ForegroundColor;
+                    Console.Write(text);
+                    Console.ResetColor();
+                }
+                Console.WriteLine();
             }
 
             return value;
@@ -129,19 +138,17 @@ namespace icecream
 
         private static string GetRelativeFilePath()
         {
-            StackTrace st = new StackTrace(new StackFrame(1, true));
-            StackFrame sf = st.GetFrame(0);
-
-            string fileName = sf.GetFileName();
+            var st = new StackTrace(new StackFrame(3, true));
+            var sf = st.GetFrame(0);
+            var fileName = sf?.GetFileName();
             return Path.GetFileName(fileName);
         }
 
         private static string GetAbsoluteFilePath()
         {
-            StackTrace st = new StackTrace(new StackFrame(1, true));
-            StackFrame sf = st.GetFrame(0);
-
-            string fileName = sf.GetFileName();
+            var st = new StackTrace(new StackFrame(3, true));
+            var sf = st.GetFrame(0);
+            var fileName = sf?.GetFileName() ?? "";
             return fileName;
         }
     }
