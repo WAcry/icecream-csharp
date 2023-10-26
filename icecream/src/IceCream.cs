@@ -32,13 +32,12 @@ namespace icecream
         private static ConsoleColor _labelColor = ConsoleColor.DarkBlue;
         private static ConsoleColor _fieldColor = ConsoleColor.DarkRed;
         private static ConsoleColor _valueColor = ConsoleColor.DarkCyan;
-        private static Encoding _defaultEncoding = Encoding.UTF8;
+        private static Encoding _encoding = Encoding.UTF8;
 
         private static Func<object, string> _argToStringFunction
             = obj => JsonConvert.SerializeObject(obj, new StringEnumConverter());
 
         private static Func<string, string> _outputFunction { get; set; } = null;
-
 
         public static void ConfigureOutput(IceCreamSettings settings)
         {
@@ -50,7 +49,7 @@ namespace icecream
             _labelColor = settings?.LabelColor ?? _labelColor;
             _fieldColor = settings?.FieldColor ?? _fieldColor;
             _valueColor = settings?.ValueColor ?? _valueColor;
-            _defaultEncoding = settings?.Encoding ?? _defaultEncoding;
+            _encoding = settings?.Encoding ?? _encoding;
         }
 
         public static void Enable()
@@ -110,6 +109,7 @@ namespace icecream
             {
                 values = "ArgToStringFunction failed to serialize value, error: " + e;
             }
+
             return values;
         }
 
@@ -127,8 +127,8 @@ namespace icecream
                 return value;
             }
 
-            Console.OutputEncoding = _defaultEncoding;
-            Console.InputEncoding = _defaultEncoding;
+            Console.OutputEncoding = _encoding;
+            Console.InputEncoding = _encoding;
 
             var contextPart = BuildContext(memberName, lineNumber);
             var labelPart = BuildLabel(label);
@@ -136,7 +136,7 @@ namespace icecream
 
             if (_outputFunction != null)
             {
-                var output = $"{prefixPart}{contextPart}{labelPart}{GetNativeValues(value)}";               
+                var output = $"{prefixPart}{contextPart}{labelPart}{GetNativeValues(value)}";
                 try
                 {
                     _outputFunction(output);
@@ -148,6 +148,7 @@ namespace icecream
             }
             else
             {
+                // Write to console with colors thread-safely
                 lock (Console.Out)
                 {
                     Console.Write($"{prefixPart}{contextPart}");

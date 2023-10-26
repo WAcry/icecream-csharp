@@ -88,6 +88,12 @@ namespace icecream
                         break;
                     }
 
+                    if (token.Type == JTokenType.Boolean)
+                    {
+                        list.Add((_valueColor, token.ToString().ToLower()));
+                        break;
+                    }
+
                     list.Add((_valueColor, token.ToString()));
                     break;
             }
