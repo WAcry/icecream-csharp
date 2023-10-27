@@ -12,44 +12,24 @@ namespace icecream
     public class IceCreamSettings
     {
         public bool IncludeContext { get; set; } = true;
-        public string CustomPrefix { get; set; } = null;
-        public bool AbsPath { get; set; } = false;
-        public Func<string, string> OutputFunction { get; set; } = null;
+        public string Prefix { get; set; } = "\ud83c\udf67| ";
+        public bool UseAbsPath { get; set; } = false;
+        public Action<string> OutputAction { get; set; } = null;
         public Func<object, string> ArgToStringFunction { get; set; } = null;
-        public ConsoleColor? LabelColor { get; set; } = null;
-        public ConsoleColor? FieldColor { get; set; } = null;
-        public ConsoleColor? ValueColor { get; set; } = null;
-        public Encoding Encoding { get; set; } = null;
+        public ConsoleColor? LabelColor { get; set; } = ConsoleColor.DarkBlue;
+        public ConsoleColor? FieldColor { get; set; } = ConsoleColor.DarkRed;
+        public ConsoleColor? ValueColor { get; set; } = ConsoleColor.DarkCyan;
+        public Encoding Encoding { get; set; } = Encoding.UTF8;
     }
 
     public static class IceCream
     {
         private static bool _enabled = true;
-        private const string _defaultEmojiPrefix = "\ud83c\udf67| ";
-        private static bool _includeContext = true;
-        private static string _customPrefix = null;
-        private static bool _contextAbsPath = false;
-        private static ConsoleColor _labelColor = ConsoleColor.DarkBlue;
-        private static ConsoleColor _fieldColor = ConsoleColor.DarkRed;
-        private static ConsoleColor _valueColor = ConsoleColor.DarkCyan;
-        private static Encoding _encoding = Encoding.UTF8;
+        private static IceCreamSettings _settings = new IceCreamSettings();
 
-        private static Func<object, string> _argToStringFunction
-            = obj => JsonConvert.SerializeObject(obj, new StringEnumConverter());
-
-        private static Func<string, string> _outputFunction { get; set; } = null;
-
-        public static void ConfigureOutput(IceCreamSettings settings)
+        public static void Configure(IceCreamSettings settings = null)
         {
-            _includeContext = settings?.IncludeContext ?? _includeContext;
-            _customPrefix = settings?.CustomPrefix ?? _customPrefix;
-            _contextAbsPath = settings?.AbsPath ?? _contextAbsPath;
-            _outputFunction = settings?.OutputFunction ?? _outputFunction;
-            _argToStringFunction = settings?.ArgToStringFunction ?? _argToStringFunction;
-            _labelColor = settings?.LabelColor ?? _labelColor;
-            _fieldColor = settings?.FieldColor ?? _fieldColor;
-            _valueColor = settings?.ValueColor ?? _valueColor;
-            _encoding = settings?.Encoding ?? _encoding;
+            _settings = settings ?? new IceCreamSettings();
         }
 
         public static void Enable()
@@ -62,7 +42,7 @@ namespace icecream
             _enabled = false;
         }
 
-        public static string Format<T>(this T value, string label = "", [CallerMemberName] string memberName = "",
+        public static string IceFormat<T>(this T value, string label = "", [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0)
         {
             if (!_enabled)
@@ -79,9 +59,9 @@ namespace icecream
 
         private static string BuildContext(string memberName = "", int lineNumber = 0)
         {
-            if (!_includeContext) return string.Empty;
+            if (!_settings.IncludeContext) return string.Empty;
             var timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
-            var filePath = _contextAbsPath ? GetAbsoluteFilePath() : GetRelativeFilePath();
+            var filePath = _settings.UseAbsPath ? GetAbsoluteFilePath() : GetRelativeFilePath();
             var context = $"{filePath}:{lineNumber} in {memberName}() at {timestamp} - ";
             return context;
         }
@@ -94,7 +74,7 @@ namespace icecream
 
         private static string BuildPrefix()
         {
-            var prefixPart = _customPrefix ?? _defaultEmojiPrefix;
+            var prefixPart = _settings.Prefix ?? string.Empty;
             return prefixPart;
         }
 
@@ -103,7 +83,9 @@ namespace icecream
             string values;
             try
             {
-                values = _argToStringFunction(value);
+                values = _settings.ArgToStringFunction == null
+                    ?  JsonConvert.SerializeObject(value, new StringEnumConverter())
+                    : _settings.ArgToStringFunction(value);
             }
             catch (Exception e)
             {
@@ -116,7 +98,7 @@ namespace icecream
         private static IEnumerable<(ConsoleColor?, string)> GetValuesWithColor<T>(T value)
         {
             var values = GetNativeValues(value);
-            return Coloring.ConvertJsonIntoList(values, _fieldColor, _valueColor);
+            return Coloring.ConvertJsonIntoList(values, _settings.FieldColor, _settings.ValueColor);
         }
 
         public static T ic<T>(this T value, string label = "", [CallerMemberName] string memberName = "",
@@ -127,23 +109,30 @@ namespace icecream
                 return value;
             }
 
-            Console.OutputEncoding = _encoding;
-            Console.InputEncoding = _encoding;
+            Console.OutputEncoding = _settings.Encoding;
+            Console.InputEncoding = _settings.Encoding;
 
             var contextPart = BuildContext(memberName, lineNumber);
             var labelPart = BuildLabel(label);
             var prefixPart = BuildPrefix();
 
-            if (_outputFunction != null)
+            if (_settings.OutputAction != null || _settings.ArgToStringFunction != null)
             {
                 var output = $"{prefixPart}{contextPart}{labelPart}{GetNativeValues(value)}";
-                try
+                if (_settings.OutputAction != null)
                 {
-                    _outputFunction(output);
+                    try
+                    {
+                        _settings.OutputAction(output);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"OutputFunction failed to process output: {output}, error: {e}");
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    Console.WriteLine($"OutputFunction failed to process output: {output}, error: {e}");
+                    Console.WriteLine(output);
                 }
             }
             else
@@ -152,7 +141,7 @@ namespace icecream
                 lock (Console.Out)
                 {
                     Console.Write($"{prefixPart}{contextPart}");
-                    Console.ForegroundColor = _labelColor;
+                    Console.ForegroundColor = _settings.LabelColor ?? Console.ForegroundColor;
                     Console.Write(labelPart);
                     Console.ResetColor();
                     foreach (var (color, text) in GetValuesWithColor(value))
