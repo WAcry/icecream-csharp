@@ -13,7 +13,7 @@ namespace tests
         private TextWriter _originalOutput;
         private const string _defaultPrefix = "\ud83c\udf67| ";
         private const string _defaultTimestamp = "00:00:00.000";
-        
+
         private string _str;
         private int _num;
         private double _dbl;
@@ -34,7 +34,7 @@ namespace tests
             public int PublicInt { get; set; } = 2;
             public string PublicString { get; set; } = "public";
         }
-        
+
         private enum TestEnum
         {
             A,
@@ -67,11 +67,13 @@ namespace tests
             _boolean = true;
             _obj = new { a = 1, b = "2", c = new { d = 3, e = new { f = 4 } } };
             _dict = new Dictionary<string, object>
-                { { "a", 1 }, 
-                    { "b", "2" }, 
-                    { "c", new { d = 3, e = new { f = 4 } } }, 
-                    { "d", new Dictionary<string, TestClass> { { "test", new TestClass() } } } };
-            _list = new List<object> { 1, "2", new { d = 3, e = new { f = 4 } }, new TestClass() }; 
+            {
+                { "a", 1 },
+                { "b", "2" },
+                { "c", new { d = 3, e = new { f = 4 } } },
+                { "d", new Dictionary<string, TestClass> { { "test", new TestClass() } } }
+            };
+            _list = new List<object> { 1, "2", new { d = 3, e = new { f = 4 } }, new TestClass() };
             _arr = new string[] { "a", "b", "c" };
             _kvp = new KeyValuePair<string, object>("a", 1);
             _tuple = (1, 3.14f, true, new TestClass());
@@ -106,13 +108,14 @@ namespace tests
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"Key\": \"a\", \"Value\": 1}}",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"Item1\": 1, \"Item2\": 3.14, \"Item3\": true, \"Item4\": {{\"PublicInt\": 2, \"PublicString\": \"public\"}}}}",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"PublicInt\": 2, \"PublicString\": \"public\"}}",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"a\": 1, \"b\": \"2\", \"c\": {{\"d\": 3, \"e\": {{\"f\": 4}}}}}}",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - \"A\""
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - \"A\"",
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"a\": 1, \"b\": \"2\", \"c\": {{\"d\": 3, \"e\": {{\"f\": 4}}}}}}"
             };
 
             var inputValues = new object[]
             {
-                _str, _num, _dbl, _boolean, _obj, _dict, _list, _arr, _kvp, _tuple, _testClass, anonymousObject, _testEnum
+                _str, _num, _dbl, _boolean, _obj, _dict, _list, _arr,
+                _kvp, _tuple, _testClass, _testEnum, anonymousObject
             };
 
             // Act & Assert
@@ -124,7 +127,7 @@ namespace tests
                 Assert.That(consoleOutput, Is.EqualTo(expectedOutputs[i]));
             }
         }
-        
+
         [Test]
         public void IceFormat_ShouldReturnFormattedString()
         {
@@ -143,13 +146,14 @@ namespace tests
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - {{\"Key\":\"a\",\"Value\":1}}",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - {{\"Item1\":1,\"Item2\":3.14,\"Item3\":true,\"Item4\":{{\"PublicInt\":2,\"PublicString\":\"public\"}}}}",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - {{\"PublicInt\":2,\"PublicString\":\"public\"}}",
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - \"A\"",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - {{\"a\":1,\"b\":\"2\",\"c\":{{\"d\":3,\"e\":{{\"f\":4}}}}}}",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - \"A\""
             };
 
             var inputValues = new object[]
             {
-                _str, _num, _dbl, _boolean, _obj, _dict, _list, _arr, _kvp, _tuple, _testClass, anonymousObject, _testEnum
+                _str, _num, _dbl, _boolean, _obj, _dict, _list, _arr,
+                _kvp, _tuple, _testClass, _testEnum, anonymousObject
             };
 
             // Act & Assert
@@ -164,7 +168,8 @@ namespace tests
         [Test]
         public void Ic_UseLabel_ShouldHaveLabelWriteToConsole()
         {
-            var expectedOutput = $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - Label: \"{_str}\"";
+            var expectedOutput =
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - Label: \"{_str}\"";
             IceCreamTestHelper.Ic(_str, "Label");
             var consoleOutput = UpdateTimeStamp(_output.ToString().Trim());
             _output.GetStringBuilder().Clear();
@@ -174,7 +179,8 @@ namespace tests
         [Test]
         public void Format_UseLabel_ShouldHaveLabelWriteToConsole()
         {
-            var expectedOutput = $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - Label: \"{_str}\"";
+            var expectedOutput =
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - Label: \"{_str}\"";
             var formatted = IceCreamTestHelper.IceFormat(_str, "Label");
             var consoleOutput = UpdateTimeStamp(formatted.Trim());
             Assert.That(consoleOutput, Is.EqualTo(expectedOutput));
@@ -194,7 +200,7 @@ namespace tests
                 Assert.That(obj3, Is.Not.EqualTo(obj1));
             });
         }
-        
+
         [Test]
         public void ConfigureOutput_DisableContext()
         {
@@ -212,7 +218,7 @@ namespace tests
             // Assert
             Assert.That(_output.ToString().Trim(), Is.EqualTo("Prefix>Label: 1"));
         }
-        
+
         [Test]
         public void ConfigureOutput_SetArgToStringFunction()
         {
@@ -243,10 +249,10 @@ namespace tests
                 ArgToStringFunction = o => throw new Exception("Test")
             };
             IceCream.Configure(iceCreamSettings);
-        
+
             // Act & Assert
             1.ic("Label");
-        
+
             // Assert
             StringAssert.StartsWith("Prefix>Label: ArgToStringFunction failed to serialize value, error:",
                 _output.ToString().Trim());
@@ -264,15 +270,15 @@ namespace tests
                 OutputAction = s => Console.Write("Output:" + s)
             };
             IceCream.Configure(iceCreamSettings);
-        
+
             // Act
             1.ic("Label");
-        
+
             // Assert
             Assert.That(_output.ToString().Trim(), Is.EqualTo("Output:Prefix>Label: 1"));
             _output.GetStringBuilder().Clear();
         }
-        
+
         [Test]
         public void ConfigureOutput_OutputFunctionThrowsException()
         {
@@ -284,16 +290,16 @@ namespace tests
                 OutputAction = s => throw new Exception("Test")
             };
             IceCream.Configure(iceCreamSettings);
-        
+
             // Act & Assert
             1.ic("Label");
-        
+
             // Assert
             StringAssert.StartsWith("OutputFunction failed to process output:",
                 _output.ToString().Trim());
             _output.GetStringBuilder().Clear();
         }
-        
+
         [Test]
         public void Ic_DisableAndEnable()
         {

@@ -18,7 +18,8 @@ namespace tests
         public void ConvertJsonIntoList_ShouldConvertJsonToColorList()
         {
             // Arrange
-            const string json = "{\"string\":\"abc\",\"int\":30,\"bool\":true,\"null\":null,\"array\":[1,2,3],\"object\":{\"num\":1,\"sub_obj\":{\"num\":2}}}";
+            const string json = "{\"string\":\"abc\",\"int\":30,\"bool\":true,\"null\":null,\"array\":[1,2,3],"
+                                + "\"object\":{\"num\":1,\"sub_obj\":{\"num\":2}}}";
             var expectedList = new List<(ConsoleColor?, string)>
             {
                 (null, "{"),
