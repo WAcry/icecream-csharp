@@ -2,8 +2,9 @@
 
     <PropertyGroup>
         <PackageId>icecream</PackageId>
+        <PackageReleaseNotes>Add more ways to configure output</PackageReleaseNotes>
+        <Version>2.0.2</Version>
         <Title>icecream</Title>
-        <Version>2.0.1</Version>
         <Authors>Ziyuan(David) Zhang</Authors>
         <Owners>Ziyuan(David) Zhang</Owners>
         <IconUrl>https://raw.githubusercontent.com/gruns/icecream/master/logo.svg</IconUrl>
@@ -12,11 +13,10 @@
         <Description>🍧| A redesigned, powerful, colorful and easy to use C# port of Python icecream library.🍧</Description>
         <PackageIconUrl>https://raw.githubusercontent.com/gruns/icecream/master/logo.svg</PackageIconUrl>
         <RepositoryUrl>https://github.com/WAcry/icecream-csharp</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/WAcry/icecream-csharp</PackageProjectUrl>
+<!--        <PackageProjectUrl>https://github.com/WAcry/icecream-csharp</PackageProjectUrl>-->
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>icecream</PackageTags>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <PackageReleaseNotes>To support traditional way using ic()</PackageReleaseNotes>
         <OutputType>Library</OutputType>
         <!--        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>-->
         <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net5.0;net45;netcoreapp3.1;netstandard2.0</TargetFrameworks>
@@ -32,7 +32,7 @@
         <PackageReference Include="Newtonsoft.Json" Version="*"/>
         <None Include="README.md" Pack="true" PackagePath="." Visible="true"/>
         <None Include="LICENSE" Pack="true" PackagePath="." Visible="true"/>
-        <None Include="logo.svg" Pack="true" PackagePath="." Visible="true"/>
+        <None Include="logo.png" Pack="true" PackagePath="." Visible="true"/>
     </ItemGroup>
 
 </Project>

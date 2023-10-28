@@ -47,7 +47,7 @@ jobs:
             7.0.x
 
       - name: Move Resources (README.md, LICENSE, logo.svg) to icecream\
-        run: copy README.md icecream\ && copy LICENSE icecream\ && copy logo.svg icecream\
+        run: copy README.md icecream\ && copy LICENSE icecream\ && copy logo.png icecream\
 
       - name: Restore dependencies
         run: dotnet restore
