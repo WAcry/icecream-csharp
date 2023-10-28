@@ -5,14 +5,19 @@ using System.Linq;
 
 namespace icecream
 {
-    public class Coloring
+    public static class Coloring
     {
-        public static IEnumerable<(ConsoleColor?, string)> ConvertJsonIntoList(string json)
+        private static ConsoleColor _fieldColor = ConsoleColor.DarkRed;
+        private static ConsoleColor _valueColor = ConsoleColor.DarkCyan;
+
+        public static IEnumerable<(ConsoleColor?, string)> ConvertJsonIntoList(string json,
+            ConsoleColor? fieldColor = null, ConsoleColor? valueColor = null)
         {
+            _fieldColor = fieldColor ?? _fieldColor;
+            _valueColor = valueColor ?? _valueColor;
+
             var list = new List<(ConsoleColor?, string)>();
-
             ProcessJToken(JToken.Parse(json), list);
-
             return list;
         }
 
@@ -51,7 +56,7 @@ namespace icecream
                     list.Add((null, "]"));
                     break;
                 case JTokenType.Property:
-                    list.Add((ConsoleColor.DarkRed, $"\"{(token as JProperty).Name}\""));
+                    list.Add((_fieldColor, $"\"{(token as JProperty).Name}\""));
                     list.Add((null, ": "));
                     ProcessJToken((token as JProperty).Value, list);
                     break;
@@ -73,17 +78,17 @@ namespace icecream
                 default:
                     if (token.Type == JTokenType.String)
                     {
-                        list.Add((ConsoleColor.DarkCyan, $"\"{token}\""));
+                        list.Add((_valueColor, $"\"{token}\""));
                         break;
                     }
 
                     if (token.Type == JTokenType.Null)
                     {
-                        list.Add((ConsoleColor.DarkCyan, "null"));
+                        list.Add((_valueColor, "null"));
                         break;
                     }
 
-                    list.Add((ConsoleColor.DarkCyan, token.ToString()));
+                    list.Add((_valueColor, token.ToString()));
                     break;
             }
         }
