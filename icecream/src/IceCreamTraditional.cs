@@ -1,9 +1,15 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
+using Newtonsoft.Json.Converters;
 using static icecream.IceCreamCore;
 
 namespace icecream
 {
-    public static class IceCream
+    public static class IceCreamTraditional
     {
         public static void Configure(IceCreamSettings settings = null)
         {
@@ -20,13 +26,13 @@ namespace icecream
             _enabled = false;
         }
 
-        public static string IceFormat<T>(this T value, string label = null, [CallerMemberName] string memberName = "",
+        public static string IceFormat<T>(T value, string label = null, [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
         {
             return IceFormatInternal(value, label, memberName, lineNumber, filePath);
         }
 
-        public static T ic<T>(this T value, string label = null, [CallerMemberName] string memberName = "",
+        public static T ic<T>(T value, string label = null, [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
         {
             return IcInternal(value, label, memberName, lineNumber, filePath);
