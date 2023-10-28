@@ -2,7 +2,7 @@
 
 [![NuGet version (icecream)](https://img.shields.io/nuget/v/icecream.svg?style=flat-square)](https://www.nuget.org/packages/icecream)
 [![Build status](https://github.com/WAcry/icecream-csharp/actions/workflows/ci.yml/badge.svg)](https://github.com/WAcry/icecream-csharp/actions/workflows/build-and-test.yml)
-[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/WAcry/icecream-csharp/blob/master/LICENSE.md)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/WAcry/icecream-csharp/blob/master/LICENSE)
 [![.NET](https://img.shields.io/badge/sdk.version-.NET%3E5.0%20%7C%20.NET%20Core%203.1%20%7C%20.NET%20Standard%202.0%20%7C%20.NET%20Framework%204.5-blue)](https://dotnet.microsoft.com/en-us/)
 
 ### IceCream — Never use print() to debug again
