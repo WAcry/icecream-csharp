@@ -113,8 +113,10 @@ namespace icecream
                     Console.ForegroundColor = _settings.LabelColor ?? Console.ForegroundColor;
                     Console.Write(labelPart);
                     Console.ResetColor();
-                    foreach (var (color, text) in GetValuesWithColor(value))
+                    foreach (var kvp in GetValuesWithColor(value))
                     {
+                        var color = kvp.Item1;
+                        var text = kvp.Item2;
                         Console.ForegroundColor = color ?? Console.ForegroundColor;
                         Console.Write(text);
                         Console.ResetColor();
