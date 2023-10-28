@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace icecream
 {
@@ -17,7 +18,7 @@ namespace icecream
             _valueColor = valueColor ?? _valueColor;
 
             var list = new List<(ConsoleColor?, string)>();
-            ProcessJToken(JToken.Parse(json), list);
+            ProcessJToken(JToken.ReadFrom(new JsonTextReader(new System.IO.StringReader(json))), list);
             return list;
         }
 
@@ -72,9 +73,6 @@ namespace icecream
                 case JTokenType.Date:
                 case JTokenType.Raw:
                 case JTokenType.Bytes:
-                case JTokenType.Guid:
-                case JTokenType.Uri:
-                case JTokenType.TimeSpan:
                 default:
                     if (token.Type == JTokenType.String)
                     {
