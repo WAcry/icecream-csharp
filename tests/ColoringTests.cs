@@ -23,23 +23,23 @@ namespace tests
             var expectedList = new List<(ConsoleColor?, string)>
             {
                 (null, "{"),
-                (ConsoleColor.DarkRed, "\"string\""),
+                (ConsoleColor.DarkRed, "string"),
                 (null, ": "),
                 (ConsoleColor.DarkCyan, "\"abc\""),
                 (null, ", "),
-                (ConsoleColor.DarkRed, "\"int\""),
+                (ConsoleColor.DarkRed, "int"),
                 (null, ": "),
                 (ConsoleColor.DarkCyan, "30"),
                 (null, ", "),
-                (ConsoleColor.DarkRed, "\"bool\""),
+                (ConsoleColor.DarkRed, "bool"),
                 (null, ": "),
                 (ConsoleColor.DarkCyan, "true"),
                 (null, ", "),
-                (ConsoleColor.DarkRed, "\"null\""),
+                (ConsoleColor.DarkRed, "null"),
                 (null, ": "),
                 (ConsoleColor.DarkCyan, "null"),
                 (null, ", "),
-                (ConsoleColor.DarkRed, "\"array\""),
+                (ConsoleColor.DarkRed, "array"),
                 (null, ": "),
                 (null, "["),
                 (ConsoleColor.DarkCyan, "1"),
@@ -49,17 +49,17 @@ namespace tests
                 (ConsoleColor.DarkCyan, "3"),
                 (null, "]"),
                 (null, ", "),
-                (ConsoleColor.DarkRed, "\"object\""),
+                (ConsoleColor.DarkRed, "object"),
                 (null, ": "),
                 (null, "{"),
-                (ConsoleColor.DarkRed, "\"num\""),
+                (ConsoleColor.DarkRed, "num"),
                 (null, ": "),
                 (ConsoleColor.DarkCyan, "1"),
                 (null, ", "),
-                (ConsoleColor.DarkRed, "\"sub_obj\""),
+                (ConsoleColor.DarkRed, "sub_obj"),
                 (null, ": "),
                 (null, "{"),
-                (ConsoleColor.DarkRed, "\"num\""),
+                (ConsoleColor.DarkRed, "num"),
                 (null, ": "),
                 (ConsoleColor.DarkCyan, "2"),
                 (null, "}"),
@@ -72,6 +72,7 @@ namespace tests
 
             // Assert
             Assert.That(result, Has.Count.EqualTo(expectedList.Count));
+
             for (var i = 0; i < expectedList.Count; i++)
             {
                 Assert.Multiple(() =>
@@ -92,11 +93,11 @@ namespace tests
             var expectedList = new List<(ConsoleColor?, string)>
             {
                 (null, "{"),
-                (fieldColor, "\"name\""),
+                (fieldColor, "name"),
                 (null, ": "),
                 (valueColor, "\"John\""),
                 (null, ", "),
-                (fieldColor, "\"age\""),
+                (fieldColor, "age"),
                 (null, ": "),
                 (valueColor, "30"),
                 (null, "}"),

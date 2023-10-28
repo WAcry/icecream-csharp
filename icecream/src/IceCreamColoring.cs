@@ -11,36 +11,36 @@ namespace icecream
         private static ConsoleColor _fieldColor = ConsoleColor.DarkRed;
         private static ConsoleColor _valueColor = ConsoleColor.DarkCyan;
 
-        public static IEnumerable<(ConsoleColor?, string)> ConvertJsonIntoList(string json,
+        public static IEnumerable<Tuple<ConsoleColor?, string>> ConvertJsonIntoList(string json,
             ConsoleColor? fieldColor = null, ConsoleColor? valueColor = null)
         {
             _fieldColor = fieldColor ?? _fieldColor;
             _valueColor = valueColor ?? _valueColor;
 
-            var list = new List<(ConsoleColor?, string)>();
+            var list = new List<Tuple<ConsoleColor?, string>>();
             ProcessJToken(JToken.ReadFrom(new JsonTextReader(new System.IO.StringReader(json))), list);
             return list;
         }
 
-        private static void ProcessJToken(JToken token, ICollection<(ConsoleColor?, string)> list)
+        private static void ProcessJToken(JToken token, ICollection<Tuple<ConsoleColor?, string>> list)
         {
             switch (token.Type)
             {
                 case JTokenType.Object:
-                    list.Add((null, "{"));
+                    list.Add(new Tuple<ConsoleColor?, string>(null, "{"));
                     foreach (var child in token.Children<JProperty>())
                     {
                         ProcessJToken(child, list);
                         if (child.Next != null)
                         {
-                            list.Add((null, ", "));
+                            list.Add(new Tuple<ConsoleColor?, string>(null, ", "));
                         }
                     }
 
-                    list.Add((null, "}"));
+                    list.Add(new Tuple<ConsoleColor?, string>(null, "}"));
                     break;
                 case JTokenType.Array:
-                    list.Add((null, "["));
+                    list.Add(new Tuple<ConsoleColor?, string>(null, "["));
 
                     var i = 0;
                     foreach (var child in token.Children())
@@ -48,17 +48,17 @@ namespace icecream
                         ProcessJToken(child, list);
                         if (i < token.Children().Count() - 1)
                         {
-                            list.Add((null, ", "));
+                            list.Add(new Tuple<ConsoleColor?, string>(null, ", "));
                         }
 
                         i++;
                     }
 
-                    list.Add((null, "]"));
+                    list.Add(new Tuple<ConsoleColor?, string>(null, "]"));
                     break;
                 case JTokenType.Property:
-                    list.Add((_fieldColor, $"\"{(token as JProperty).Name}\""));
-                    list.Add((null, ": "));
+                    list.Add(new Tuple<ConsoleColor?, string>(_fieldColor, (token as JProperty).Name));
+                    list.Add(new Tuple<ConsoleColor?, string>(null, ": "));
                     ProcessJToken((token as JProperty).Value, list);
                     break;
                 case JTokenType.None:
@@ -76,23 +76,23 @@ namespace icecream
                 default:
                     if (token.Type == JTokenType.String)
                     {
-                        list.Add((_valueColor, $"\"{token}\""));
+                        list.Add(new Tuple<ConsoleColor?, string>(_valueColor, $"\"{token}\""));
                         break;
                     }
 
                     if (token.Type == JTokenType.Null)
                     {
-                        list.Add((_valueColor, "null"));
+                        list.Add(new Tuple<ConsoleColor?, string>(_valueColor, "null"));
                         break;
                     }
 
                     if (token.Type == JTokenType.Boolean)
                     {
-                        list.Add((_valueColor, token.ToString().ToLower()));
+                        list.Add(new Tuple<ConsoleColor?, string>(_valueColor, token.ToString().ToLower()));
                         break;
                     }
 
-                    list.Add((_valueColor, token.ToString()));
+                    list.Add(new Tuple<ConsoleColor?, string>(_valueColor, token.ToString()));
                     break;
             }
         }
