@@ -61,7 +61,7 @@ Prints as:
 🍧| Program.cs:1 in Main() at 06:33:13.723 - Label: "Hello World"
 🍧| Program.cs:2 in Main() at 06:33:13.761 - 12
 🍧| Program.cs:3 in Main() at 06:33:13.766 - x: 14
-🍧| Program.cs:4 in Main() at 06:33:13.767 - {Item1: 1, Item2: 2}
+🍧| Program.cs:4 in Main() at 06:33:13.767 - {"Item1": 1, "Item2": 2}
 ```
 
 As you can see, you can add `.ic()` almost ANYWHERE and have no impact on the code logic because it returns the original
@@ -80,7 +80,7 @@ While, you can still add an optional label to the output by passing a string as 
 
 ### Print Anything
 
-We use `JsonConvert.SerializeObject()` (all versions supported) to convert the object to a string in default. It is
+We use `JsonConvert.SerializeObject()` to convert the object to a string in default. It is
 powerful and is able to print
 much more types than `JsonSerializer.Serialize()`. You can define your own `ArgToStringFunction` to parse the object to
 a string in your own
@@ -159,7 +159,7 @@ Here's a overview of the settings:
  ```
 
 Use `IceCream.Configure(IceCreamSettings settings)` to configure IceCream. You can only set the properties you want to
-change, and the rest will be set to default values. Also, call `IceCream.Configure()` directly resets all settings.
+change, and the rest will be set to default values. Call `IceCream.Configure()` directly to reset all settings.
 
 1. `IncludeContext` (default: `true`): Whether to include context information (line number, parent function, etc.) in
    the output.
@@ -174,7 +174,7 @@ change, and the rest will be set to default values. Also, call `IceCream.Configu
 8. `ValueColor` (default: `ConsoleColor.DarkCyan`): The color of the value.
 9. `Encoding` (default: `Encoding.UTF8`): The encoding of the output.
 
-Alternatively, you can use `IceCream.SetXxx(newValue)` (e.g. `IceCream.SetPrefix("ic>")`) to set a single setting. These
+**Alternatively**, you can use `IceCream.SetXxx(newValue)` (e.g. `IceCream.SetPrefix("ic>")`) to set a single setting. These
 functions won't reset other settings.
 
 ### IceCream in Other Languages
