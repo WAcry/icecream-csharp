@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <PackageId>icecream</PackageId>
-        <PackageReleaseNotes>Stable Version Release</PackageReleaseNotes>
-        <Version>2.1.0</Version>
+        <PackageReleaseNotes>README Badge Update</PackageReleaseNotes>
+        <Version>2.1.1</Version>
         <Title>icecream</Title>
         <Authors>Ziyuan(David) Zhang</Authors>
         <Owners>Ziyuan(David) Zhang</Owners>
