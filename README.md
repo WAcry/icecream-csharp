@@ -1,6 +1,6 @@
 # ![Logo](https://raw.githubusercontent.com/WAcry/icecream-csharp/main/logo.png) icecream-csharp
 
-[![NuGet version (icecream)](https://img.shields.io/badge/nuget-v2.0.3-blue)](https://www.nuget.org/packages/icecream)
+[![NuGet version (icecream)](https://img.shields.io/badge/nuget-v2.1.0-blue)](https://www.nuget.org/packages/icecream)
 [![Build status](https://github.com/WAcry/icecream-csharp/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/WAcry/icecream-csharp/actions/workflows/build-and-test.yml)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/WAcry/icecream-csharp/blob/master/LICENSE.md)
 [![.NET](https://img.shields.io/badge/sdk.version-.NET%3E5.0%20%7C%20.NET%20Core%203.1%20%7C%20.NET%20Standard%202.0%20%7C%20.NET%20Framework%204.5-blue)](https://dotnet.microsoft.com/en-us/)
@@ -112,14 +112,14 @@ _testEnum = TestEnum.A;
 🍧| Program.cs:15 in Main() at 06:52:17.189 - 123
 🍧| Program.cs:15 in Main() at 06:52:17.192 - 123.456
 🍧| Program.cs:15 in Main() at 06:52:17.193 - true
-🍧| Program.cs:15 in Main() at 06:52:17.194 - {a: 1, b: "2", c: {d: 3, e: {f: 4}}}
-🍧| Program.cs:15 in Main() at 06:52:17.224 - {a: 1, b: "2", c: {d: 3, e: {f: 4}}, d: {test: {PublicInt: 2, PublicString: "public"}}}
-🍧| Program.cs:15 in Main() at 06:52:17.230 - [1, "2", {d: 3, e: {f: 4}}, {PublicInt: 2, PublicString: "public"}]
+🍧| Program.cs:15 in Main() at 06:52:17.194 - {"a": 1, "b": "2", "c": {"d": 3, "e": {"f": 4}}}
+🍧| Program.cs:15 in Main() at 06:52:17.224 - {"a": 1, "b": "2", "c": {"d": 3, "e": {"f": 4}}, "d": {"test": {"PublicInt": 2, "PublicString": "public"}}}
+🍧| Program.cs:15 in Main() at 06:52:17.230 - [1, "2", {"d": 3, "e": {"f": 4}}, {"PublicInt": 2, "PublicString": "public"}]
 🍧| Program.cs:15 in Main() at 06:52:17.232 - ["a", "b", "c"]
-🍧| Program.cs:15 in Main() at 06:52:17.233 - {Key: "a", Value: 1}
-🍧| Program.cs:15 in Main() at 06:52:17.236 - {Item1: 1, Item2: 3.14, Item3: true, Item4: {PublicInt: 2, PublicString: "public"}}
-🍧| Program.cs:15 in Main() at 06:52:17.238 - {PublicInt: 2, PublicString: "public"}
-🍧| Program.cs:15 in Main() at 06:52:17.238 - A
+🍧| Program.cs:15 in Main() at 06:52:17.233 - {"Key": "a", "Value": 1}
+🍧| Program.cs:15 in Main() at 06:52:17.236 - {"Item1": 1, "Item2": 3.14, "Item3": true, "Item4": {"PublicInt": 2, "PublicString": "public"}}
+🍧| Program.cs:15 in Main() at 06:52:17.238 - {"PublicInt": 2, "PublicString": "public"}
+🍧| Program.cs:15 in Main() at 06:52:17.238 - "A"
 ```
 
 ### Logging

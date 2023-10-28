@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace icecream
 {
@@ -18,7 +17,7 @@ namespace icecream
             _valueColor = valueColor ?? _valueColor;
 
             var list = new List<Tuple<ConsoleColor?, string>>();
-            ProcessJToken(JToken.ReadFrom(new JsonTextReader(new System.IO.StringReader(json))), list);
+            ProcessJToken(JToken.Parse(json), list);
             return list;
         }
 
@@ -57,7 +56,7 @@ namespace icecream
                     list.Add(new Tuple<ConsoleColor?, string>(null, "]"));
                     break;
                 case JTokenType.Property:
-                    list.Add(new Tuple<ConsoleColor?, string>(_fieldColor, (token as JProperty).Name));
+                    list.Add(new Tuple<ConsoleColor?, string>(_fieldColor, $"\"{(token as JProperty).Name}\""));
                     list.Add(new Tuple<ConsoleColor?, string>(null, ": "));
                     ProcessJToken((token as JProperty).Value, list);
                     break;
@@ -73,6 +72,9 @@ namespace icecream
                 case JTokenType.Date:
                 case JTokenType.Raw:
                 case JTokenType.Bytes:
+                case JTokenType.Guid:
+                case JTokenType.Uri:
+                case JTokenType.TimeSpan:
                 default:
                     if (token.Type == JTokenType.String)
                     {
