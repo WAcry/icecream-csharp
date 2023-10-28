@@ -35,6 +35,9 @@ namespace tests
             public string PublicString { get; set; } = "public";
         }
 
+        int func(int x) => x + 1;
+        
+
         private enum TestEnum
         {
             A,

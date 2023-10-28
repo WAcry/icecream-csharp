@@ -68,7 +68,7 @@ namespace tests
             };
 
             // Act
-            var result = Coloring.ConvertJsonIntoList(json).ToList();
+            var result = IceCreamColoring.ConvertJsonIntoList(json).ToList();
 
             // Assert
             Assert.That(result, Has.Count.EqualTo(expectedList.Count));
@@ -103,7 +103,7 @@ namespace tests
             };
 
             // Act
-            var result = Coloring.ConvertJsonIntoList(json, fieldColor, valueColor).ToList();
+            var result = IceCreamColoring.ConvertJsonIntoList(json, fieldColor, valueColor).ToList();
 
             // Assert
             Assert.That(result, Has.Count.EqualTo(expectedList.Count));

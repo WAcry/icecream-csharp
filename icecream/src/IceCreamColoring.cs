@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace icecream
 {
-    public static class Coloring
+    public static class IceCreamColoring
     {
         private static ConsoleColor _fieldColor = ConsoleColor.DarkRed;
         private static ConsoleColor _valueColor = ConsoleColor.DarkCyan;
