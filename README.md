@@ -16,11 +16,12 @@ do. IceCream, or `ic` for short, makes print debugging a little sweeter.
 
 `ic()` is like `print()` in Python, except it's better:
 
-1. It prints not only values but also context including the filename, timestamp,
-   line number, and parent function (optionally).
-2. It's 60% faster to type.
-3. Redesigned for C#.
-4. Output is syntax highlighted.
+1. Detailed Printing: IceCream prints not only values but also contextual information, including the filename, timestamp, line number, label, and parent function (optional).
+2. Redesigned for C#: The tool has been redesigned to work with C#.
+3. Simplicity: IceCream is designed for simplicity and is 60% faster to use compared to other debugging tools.
+4. Rich Output Formatting: IceCream offers the capability to format and colorize your debugging output in one line, enhancing its informativeness and visual appeal.
+5. Flexible Configuration: You can configure various settings in IceCream to customize your debugging output according to your specific needs.
+6. Output Customization: You can further customize the debugging output by adding labels, prefixes, and more to suit your preferences.
 
 IceCream is well tested, [permissively licensed](LICENSE.txt), and
 supports mostly all versions of .NET.
@@ -153,7 +154,7 @@ change, and the rest will be set to default values. Also, `IceCream.Configure()`
 2. `Prefix` (default: `🍧| `): The prefix of the output.
 3. `UseAbsPath` (default: `false`): Whether to use absolute path of the file or the file name only.
 4. `OutputAction` (default: `null`): The action to output the result. If it is `null`, the result will be output to
-   `Console.WriteLine() with the color set in `LabelColor`, `FieldColor` and `ValueColor`.
+   `Console.WriteLine()` with the color set in `LabelColor`, `FieldColor` and `ValueColor`.
 5. `ArgToStringFunction` (default: `obj => JsonConvert.SerializeObject(obj, new StringEnumConverter())`): The function
   converting the object to a string. If it is `null`, the default function will be used.
 6. `LabelColor` (default: `ConsoleColor.DarkBlue`): The color of the label.
