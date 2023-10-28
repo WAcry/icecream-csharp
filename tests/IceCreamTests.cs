@@ -101,15 +101,15 @@ namespace tests
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {_num}",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {_dbl}",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {_boolean.ToString().ToLower()}",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{a: 1, b: \"2\", c: {{d: 3, e: {{f: 4}}}}}}",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{a: 1, b: \"2\", c: {{d: 3, e: {{f: 4}}}}, d: {{test: {{PublicInt: 2, PublicString: \"public\"}}}}}}",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - [1, \"2\", {{d: 3, e: {{f: 4}}}}, {{PublicInt: 2, PublicString: \"public\"}}]",
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"a\": 1, \"b\": \"2\", \"c\": {{\"d\": 3, \"e\": {{\"f\": 4}}}}}}",
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"a\": 1, \"b\": \"2\", \"c\": {{\"d\": 3, \"e\": {{\"f\": 4}}}}, \"d\": {{\"test\": {{\"PublicInt\": 2, \"PublicString\": \"public\"}}}}}}",
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - [1, \"2\", {{\"d\": 3, \"e\": {{\"f\": 4}}}}, {{\"PublicInt\": 2, \"PublicString\": \"public\"}}]",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - [\"a\", \"b\", \"c\"]",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{Key: \"a\", Value: 1}}",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{Item1: 1, Item2: 3.14, Item3: true, Item4: {{PublicInt: 2, PublicString: \"public\"}}}}",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{PublicInt: 2, PublicString: \"public\"}}",
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"Key\": \"a\", \"Value\": 1}}",
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"Item1\": 1, \"Item2\": 3.14, \"Item3\": true, \"Item4\": {{\"PublicInt\": 2, \"PublicString\": \"public\"}}}}",
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"PublicInt\": 2, \"PublicString\": \"public\"}}",
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - \"A\"",
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{a: 1, b: \"2\", c: {{d: 3, e: {{f: 4}}}}}}"
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {{\"a\": 1, \"b\": \"2\", \"c\": {{\"d\": 3, \"e\": {{\"f\": 4}}}}}}"
             };
 
             var inputValues = new object[]

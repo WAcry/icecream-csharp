@@ -1,6 +1,6 @@
 # ![Logo](https://raw.githubusercontent.com/WAcry/icecream-csharp/main/logo.png) icecream-csharp
 
-[![NuGet version (icecream)](https://img.shields.io/badge/nuget-v2.0.3-blue)](https://www.nuget.org/packages/icecream)
+[![NuGet version (icecream)](https://img.shields.io/badge/nuget-v2.1.0-blue)](https://www.nuget.org/packages/icecream)
 [![Build status](https://github.com/WAcry/icecream-csharp/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/WAcry/icecream-csharp/actions/workflows/build-and-test.yml)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/WAcry/icecream-csharp/blob/master/LICENSE.md)
 [![.NET](https://img.shields.io/badge/sdk.version-.NET%3E5.0%20%7C%20.NET%20Core%203.1%20%7C%20.NET%20Standard%202.0%20%7C%20.NET%20Framework%204.5-blue)](https://dotnet.microsoft.com/en-us/)

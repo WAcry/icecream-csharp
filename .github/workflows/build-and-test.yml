@@ -56,4 +56,4 @@ jobs:
         run: dotnet pack -c Release
 
       - name: Publish to NuGet
-        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY_FOR_ICECREAM }}
+        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY_FOR_ICECREAM }}
