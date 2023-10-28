@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <PackageId>icecream</PackageId>
-        <PackageReleaseNotes>Add more ways to configure output</PackageReleaseNotes>
-        <Version>2.0.2</Version>
+        <PackageReleaseNotes>Doc fix</PackageReleaseNotes>
+        <Version>2.0.3</Version>
         <Title>icecream</Title>
         <Authors>Ziyuan(David) Zhang</Authors>
         <Owners>Ziyuan(David) Zhang</Owners>
@@ -13,7 +13,7 @@
         <Description>🍧| A redesigned, powerful, colorful and easy to use C# port of Python icecream library.🍧</Description>
         <PackageIconUrl>https://raw.githubusercontent.com/gruns/icecream/master/logo.svg</PackageIconUrl>
         <RepositoryUrl>https://github.com/WAcry/icecream-csharp</RepositoryUrl>
-<!--        <PackageProjectUrl>https://github.com/WAcry/icecream-csharp</PackageProjectUrl>-->
+        <PackageProjectUrl>https://github.com/WAcry/icecream-csharp</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>icecream</PackageTags>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -24,15 +24,13 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Copyright>Copyright (c) 2023 Ziyuan(David) Zhang</Copyright>
         <AssemblyTitle>icecream</AssemblyTitle>
-        <PackageReleaseNotes>To support traditional way using ic()</PackageReleaseNotes>
-        <PackageTags>icecream;debug;debugger;log;logging;logger;print;printer;netstandard;netcore;net5;net6;net7;netstandard2.0;netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0</PackageTags>
+        <PackageTags>icecream;debug;debugger;log;logging;logger;print;printer;netstandard;netcore;net45;net5;net6;net7;netstandard2.0;netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="*"/>
+        <PackageReference Include="Newtonsoft.Json" Version="[3.5.8,]"/>
         <None Include="README.md" Pack="true" PackagePath="." Visible="true"/>
         <None Include="LICENSE" Pack="true" PackagePath="." Visible="true"/>
-        <None Include="logo.png" Pack="true" PackagePath="." Visible="true"/>
     </ItemGroup>
 
 </Project>

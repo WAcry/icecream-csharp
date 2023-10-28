@@ -46,8 +46,8 @@ jobs:
             6.0.x
             7.0.x
 
-      - name: Move Resources (README.md, LICENSE, logo.svg) to icecream\
-        run: copy README.md icecream\ && copy LICENSE icecream\ && copy logo.png icecream\
+      - name: Move Doc to icecream\
+        run: copy README.md icecream\ && copy LICENSE icecream\
 
       - name: Restore dependencies
         run: dotnet restore
@@ -56,4 +56,4 @@ jobs:
         run: dotnet pack -c Release
 
       - name: Publish to NuGet
-        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY_FOR_ICECREAM }}
+        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY_FOR_ICECREAM }}
