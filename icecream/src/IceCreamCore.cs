@@ -49,7 +49,7 @@ namespace icecream
             return values;
         }
 
-        private static IEnumerable<(ConsoleColor?, string)> GetValuesWithColor<T>(T value)
+        private static IEnumerable<Tuple<ConsoleColor?, string>> GetValuesWithColor<T>(T value)
         {
             var values = GetNativeValues(value);
             return IceCreamColoring.ConvertJsonIntoList(values, _settings.FieldColor, _settings.ValueColor);

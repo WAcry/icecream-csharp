@@ -20,7 +20,8 @@
         <PackageReleaseNotes>To support traditional way using ic()</PackageReleaseNotes>
         <OutputType>Library</OutputType>
 <!--        <TargetFrameworks>netcoreapp3.1</TargetFrameworks> -->
-        <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net5.0;netcoreapp3.1;netstandard1.0;netstandard1.3;netstandard2.0</TargetFrameworks>
+<!--        <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net5.0;net45;net40;net35;net20;netcoreapp3.1;netstandard1.0;netstandard1.3;netstandard2.0</TargetFrameworks>-->
+        <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net5.0;net45;net40;net35;net20;netcoreapp3.1;;netstandard1.3;netstandard2.0</TargetFrameworks>
         <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Copyright>Copyright (c) 2023 Ziyuan(David) Zhang</Copyright>
