@@ -84,7 +84,7 @@ namespace icecream
             try
             {
                 values = _settings.ArgToStringFunction == null
-                    ?  JsonConvert.SerializeObject(value, new StringEnumConverter())
+                    ? JsonConvert.SerializeObject(value, new StringEnumConverter())
                     : _settings.ArgToStringFunction(value);
             }
             catch (Exception e)

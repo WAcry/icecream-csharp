@@ -21,7 +21,7 @@ namespace icecream
             return list;
         }
 
-        private static void ProcessJToken(JToken token, IList<(ConsoleColor?, string)> list)
+        private static void ProcessJToken(JToken token, ICollection<(ConsoleColor?, string)> list)
         {
             switch (token.Type)
             {
