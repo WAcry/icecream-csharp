@@ -148,17 +148,21 @@ namespace icecream
             }
             else
             {
-                Console.Write($"{prefixPart}{contextPart}");
-                Console.ForegroundColor = _labelColor;
-                Console.Write(labelPart);
-                Console.ResetColor();
-                foreach (var (color, text) in GetValuesWithColor(value))
+                lock (Console.Out)
                 {
-                    Console.ForegroundColor = color ?? Console.ForegroundColor;
-                    Console.Write(text);
+                    Console.Write($"{prefixPart}{contextPart}");
+                    Console.ForegroundColor = _labelColor;
+                    Console.Write(labelPart);
                     Console.ResetColor();
+                    foreach (var (color, text) in GetValuesWithColor(value))
+                    {
+                        Console.ForegroundColor = color ?? Console.ForegroundColor;
+                        Console.Write(text);
+                        Console.ResetColor();
+                    }
+
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
             }
 
             return value;
