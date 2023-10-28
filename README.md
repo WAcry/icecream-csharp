@@ -3,10 +3,10 @@
 </h1>
 
 <p align="center">
-  <a href="https://www.nuget.org/packages/icecream"><img src="https://img.shields.io/badge/nuget-v1.0.0-blue"></a>
+  <a href="https://www.nuget.org/packages/icecream"><img src="https://img.shields.io/badge/nuget-v2.0.1-blue"></a>
   <a href="https://github.com/WAcry/icecream-csharp/actions/workflows/build-and-test.yml"><img src="https://github.com/gruns/icecream/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/WAcry/icecream-csharp/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-green"></a>
-  <a href="https://dotnet.microsoft.com/en-us/"><img src="https://img.shields.io/badge/.net-st2|3|4|5|6|7-blue"></a>
+  <a href="https://dotnet.microsoft.com/en-us/"><img src="https://img.shields.io/badge/.net-7|6|5|4.5|Core 3|Standard 2.0-blue"></a>
 </p>
 
 ### IceCream — Never use print() to debug again
@@ -16,12 +16,16 @@ do. IceCream, or `ic` for short, makes print debugging a little sweeter.
 
 `ic()` is like `print()` in Python, except it's better:
 
-1. Detailed Printing: IceCream prints not only values but also contextual information, including the filename, timestamp, line number, label, and parent function (optional).
+1. Detailed Printing: IceCream prints not only values but also contextual information, including the filename,
+   timestamp, line number, label, and parent function (optional).
 2. Redesigned for C#: The tool has been redesigned to work with C#.
 3. Simplicity: IceCream is designed for simplicity and is 60% faster to use compared to other debugging tools.
-4. Rich Output Formatting: IceCream offers the capability to format and colorize your debugging output in one line, enhancing its informativeness and visual appeal.
-5. Flexible Configuration: You can configure various settings in IceCream to customize your debugging output according to your specific needs.
-6. Output Customization: You can further customize the debugging output by adding labels, prefixes, and more to suit your preferences.
+4. Rich Output Formatting: IceCream offers the capability to format and colorize your debugging output in one line,
+   enhancing its informativeness and visual appeal.
+5. Flexible Configuration: You can configure various settings in IceCream to customize your debugging output according
+   to your specific needs.
+6. Output Customization: You can further customize the debugging output by adding labels, prefixes, and more to suit
+   your preferences.
 
 IceCream is well tested, [permissively licensed](LICENSE.txt), and
 supports mostly all versions of .NET.
@@ -63,6 +67,9 @@ In Python, `ic(foo(123))` could print something like `ic| foo(123): 456`. Howeve
 Java or C# because of the way the language is designed. In this case I believe `obj.ic()` is more elegant
 than `ic(obj)`.
 You can easily add them and remove them all with `Replace All` in your IDE.
+
+However, if you really want to use the traditional way, you can still do it with `ic(obj)`. You need
+to `using static icecream.IceCreamTraditional;` first.
 
 Usually, you don't need to add a label to the output because the context information is already enough.
 While, you can still add an optional label to the output by passing a string as `.ic(label)` like the first example.
@@ -132,6 +139,7 @@ IceCream.Disable(); // Disable IceCream
 ### Configuration
 
 Here's a overview of the settings:
+
 ```csharp
  public class IceCreamSettings
  {
@@ -149,14 +157,14 @@ Here's a overview of the settings:
 
 Use `IceCream.Configure(IceCreamSettings settings)` to configure IceCream. You can only set the properties you want to
 change, and the rest will be set to default values. Also, `IceCream.Configure()` resets all settings to default values.
-                                                              
+
 1. `IncludeContext` (default: `true`): Whether to include context information in the output.
 2. `Prefix` (default: `🍧| `): The prefix of the output.
 3. `UseAbsPath` (default: `false`): Whether to use absolute path of the file or the file name only.
 4. `OutputAction` (default: `null`): The action to output the result. If it is `null`, the result will be output to
    `Console.WriteLine()` with the color set in `LabelColor`, `FieldColor` and `ValueColor`.
 5. `ArgToStringFunction` (default: `obj => JsonConvert.SerializeObject(obj, new StringEnumConverter())`): The function
-  converting the object to a string. If it is `null`, the default function will be used.
+   converting the object to a string. If it is `null`, the default function will be used.
 6. `LabelColor` (default: `ConsoleColor.DarkBlue`): The color of the label.
 7. `FieldColor` (default: `ConsoleColor.DarkRed`): The color of the field.
 8. `ValueColor` (default: `ConsoleColor.DarkCyan`): The color of the value.

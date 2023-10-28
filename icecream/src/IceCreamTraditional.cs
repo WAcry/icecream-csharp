@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
-using Newtonsoft.Json.Converters;
+﻿using System.Runtime.CompilerServices;
 using static icecream.IceCreamCore;
 
 namespace icecream
