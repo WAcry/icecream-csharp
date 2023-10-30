@@ -67,11 +67,10 @@ Prints as:
 As you can see, you can add `.ic()` almost ANYWHERE and have no impact on the code logic because it returns the original
 value. They don't have syntax color in this README document, but they do in your console. 😃
 
-In Python, `ic(foo(123))` could print something like `ic| foo(123): 456`. However, it's impossible to do that in
-Java or C# because of the way the language is designed. In this case I believe `obj.ic()` is more elegant
-than `ic(obj)`.
-You can easily add them and remove them all with `Replace All` in your IDE.
+In Python, `ic(foo(123))` could print something like `ic| foo(123): 456`. 
+Right now this is not supported but it will be.
 
+I believe `obj.ic()` is more elegant than `ic(obj)`. For example, You can easily add them and remove them all with `Replace All` in your IDE.
 However, if you really want to use the traditional way, you can still do it with `ic(obj)`. You need
 to `using static icecream.IceCreamTraditional;` first.
 
