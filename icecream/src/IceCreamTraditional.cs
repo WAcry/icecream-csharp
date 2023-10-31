@@ -68,15 +68,15 @@ namespace icecream
         }
 
         public static string IceFormat<T>(T value, string label = null, [CallerMemberName] string memberName = "",
-            [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
+            [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "", [CallerArgumentExpression("value")] string arg = null)
         {
-            return IceFormatInternal(value, label, memberName, lineNumber, filePath);
+            return IceFormatInternal(value, label, memberName, lineNumber, filePath, arg);
         }
 
         public static T ic<T>(T value, string label = null, [CallerMemberName] string memberName = "",
-            [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
+            [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "", [CallerArgumentExpression("value")] string arg = null)
         {
-            return IcInternal(value, label, memberName, lineNumber, filePath);
+            return IcInternal(value, label, memberName, lineNumber, filePath, arg);
         }
     }
 }

@@ -20,9 +20,9 @@ namespace icecream
             return context;
         }
 
-        private static string BuildLabel(string label)
+        private static string BuildLabel(string arg, string label)
         {
-            var labelPart = label != null ? $"{label}: " : string.Empty;
+            var labelPart = label != null ? $"{label}: " : string.IsNullOrEmpty(arg) ? string.Empty : $"{arg}: ";
             return labelPart;
         }
 
@@ -56,7 +56,7 @@ namespace icecream
         }
 
         internal static string IceFormatInternal<T>(T value, string label = null, string memberName = "",
-            int lineNumber = 0, string filePath = "")
+            int lineNumber = 0, string filePath = "", string arg = null)
         {
             if (!_enabled)
             {
@@ -64,14 +64,14 @@ namespace icecream
             }
 
             var contextPart = BuildContext(memberName, lineNumber, filePath);
-            var labelPart = BuildLabel(label);
+            var labelPart = BuildLabel(arg, label);
             var prefixPart = BuildPrefix();
             var output = $"{prefixPart}{contextPart}{labelPart}{GetNativeValues(value)}";
             return output;
         }
 
         internal static T IcInternal<T>(T value, string label = null, string memberName = "",
-            int lineNumber = 0, string filePath = "")
+            int lineNumber = 0, string filePath = "", string arg = null)
         {
             if (!_enabled)
             {
@@ -82,7 +82,7 @@ namespace icecream
             Console.InputEncoding = _settings.Encoding;
 
             var contextPart = BuildContext(memberName, lineNumber, filePath);
-            var labelPart = BuildLabel(label);
+            var labelPart = BuildLabel(arg, label);
             var prefixPart = BuildPrefix();
 
             if (_settings.OutputAction != null || _settings.ArgToStringFunction != null)
