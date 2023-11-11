@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <PackageId>icecream</PackageId>
-        <PackageReleaseNotes>README Badge Update</PackageReleaseNotes>
-        <Version>3.0.0</Version>
+        <PackageReleaseNotes>v3 release</PackageReleaseNotes>
+        <Version>3.0.1</Version>
         <Title>icecream</Title>
         <Authors>Ziyuan(David) Zhang</Authors>
         <Owners>Ziyuan(David) Zhang</Owners>
@@ -29,7 +29,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="*" />
+        <PackageReference Include="Newtonsoft.Json" Version="[13.0.1,)"/>
         <None Include="README.md" Pack="true" PackagePath="." Visible="true"/>
         <None Include="LICENSE" Pack="true" PackagePath="." Visible="true"/>
     </ItemGroup>
