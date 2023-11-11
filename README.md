@@ -162,7 +162,7 @@ Here's a overview of the settings:
 9. `Encoding` (default: `Encoding.UTF8`): The encoding of the output.
 
 You can use `IceCream.SetXxx(newValue)` (e.g. `IceCream.SetPrefix("ic> ")`) to set a single setting.
-If you are using `IceCreamTraditional`, you should use `IceCreamTraditional.SetXxx(newValue)` instead.
+You can also use `IceCreamTraditional.SetXxx(newValue)`. They do the same thing and share the settings.
 
 ### Misc
 
