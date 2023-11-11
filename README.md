@@ -152,14 +152,11 @@ Here's a overview of the settings:
    the output.
 2. `Prefix` (default: `🍧| `): The prefix of the output.
 3. `UseAbsPath` (default: `false`): Whether to use absolute path of the file or the file name only.
-4. `OutputAction` (default: `null`): The action to output the result. If it is `null`, the result will be output to
+4. `OutputAction` (default: `Console.WriteLine`): The action to output the result. If it is `null`, the result will be output to
    `Console.WriteLine()` with the color set in `LabelColor`, `FieldColor` and `ValueColor`.
 5. `ArgToStringFunction` (default: `obj => JsonConvert.SerializeObject(obj, new StringEnumConverter())`): The function
    converting the object to a string. If it is `null`, the default function will be used.
-6. `LabelColor` (default: `ConsoleColor.DarkBlue`): The color of the label.
-7. `FieldColor` (default: `ConsoleColor.DarkRed`): The color of the field.
-8. `ValueColor` (default: `ConsoleColor.DarkCyan`): The color of the value.
-9. `Encoding` (default: `Encoding.UTF8`): The encoding of the output.
+6. `ConsoleEncoding` (default: `Encoding.UTF8`): The encoding of the output.
 
 You can use `IceCream.SetXxx(newValue)` (e.g. `IceCream.SetPrefix("ic> ")`) to set a single setting.
 You can also use `IceCreamTraditional.SetXxx(newValue)`. They do the same thing and share the settings.
