@@ -171,10 +171,6 @@ If you are using `IceCreamTraditional`, you should use `IceCreamTraditional.SetX
 Coloring is possible in C# console, but there are limited color choices. Maybe I'll support coloring in the future, but
 for now I don't feel it's that useful.
 
-#### Dependency
-
-Any version of `Newtonsoft.Json`
-
 #### Framework
 
 `>.NET Core 3.1` and `>.NET 5.0` are suggested. `NET Standard 2.0` and `.NET Framework 4.5` are also supported, 
