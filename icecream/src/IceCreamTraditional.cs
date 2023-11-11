@@ -7,76 +7,124 @@ namespace icecream
 {
     public static class IceCreamTraditional
     {
-        public static void SetIncludeContext(bool includeContext)
+        /// <summary>
+        /// This function is like .ic() but the output is returned as a string instead of being printed to the console.
+        /// Call this function after the value you want to print. (e.g. "Hello".IceFormat())
+        /// A label parameter can be passed to label the output. (e.g. "Hello".IceFormat("greeting"))
+        /// </summary>
+        public static string IceFormat<T>(
+            T value,
+            string label = null,
+            [CallerMemberName] string memberName = "",
+            [CallerLineNumber] int lineNumber = 0,
+            [CallerFilePath] string filePath = ""
+#if NETFRAMEWORK || NETSTANDARD
+#else
+            , [CallerArgumentExpression("value")] string arg = null
+#endif
+        )
         {
-            _settings.IncludeContext = includeContext;
+            return IceFormatInternal(value, label, memberName, lineNumber, filePath
+#if NETFRAMEWORK || NETSTANDARD
+#else
+                , arg
+#endif
+            );
         }
 
-        public static void SetPrefix(string prefix)
+        /// <summary>
+        /// This function prints the value with context to the console and returns the original value.
+        /// Call this function after the value you want to print. (e.g. "Hello".ic())
+        /// A label parameter can be passed to label the output. (e.g. "Hello".ic("greeting"))
+        /// </summary>
+        public static T ic<T>(
+            T value,
+            string label = null,
+            [CallerMemberName] string memberName = "",
+            [CallerLineNumber] int lineNumber = 0,
+            [CallerFilePath] string filePath = ""
+#if NETFRAMEWORK || NETSTANDARD
+#else
+            , [CallerArgumentExpression("value")] string arg = null
+#endif
+        )
         {
-            _settings.Prefix = prefix;
+            return IcInternal(value, label, memberName, lineNumber, filePath
+#if NETFRAMEWORK || NETSTANDARD
+#else
+                , arg
+#endif
+            );
         }
 
-        public static void SetUseAbsPath(bool useAbsPath)
-        {
-            _settings.UseAbsPath = useAbsPath;
-        }
-
-        public static void SetOutputAction(Action<string> outputAction)
-        {
-            _settings.OutputAction = outputAction;
-        }
-
-        public static void SetArgToStringFunction(Func<object, string> argToStringFunction)
-        {
-            _settings.ArgToStringFunction = argToStringFunction;
-        }
-
-        public static void SetLabelColor(ConsoleColor? labelColor)
-        {
-            _settings.LabelColor = labelColor;
-        }
-
-        public static void SetFieldColor(ConsoleColor? fieldColor)
-        {
-            _settings.FieldColor = fieldColor;
-        }
-
-        public static void SetValueColor(ConsoleColor? valueColor)
-        {
-            _settings.ValueColor = valueColor;
-        }
-
-        public static void SetEncoding(Encoding encoding)
-        {
-            _settings.Encoding = encoding;
-        }
-
-        public static void Configure(IceCreamSettings settings = null)
-        {
-            _settings = settings ?? new IceCreamSettings();
-        }
-
+        /// <summary>
+        /// Enable ic() and IceFormat() functions.
+        /// </summary>
         public static void Enable()
         {
-            _enabled = true;
+            Enabled = true;
         }
 
+        /// <summary>
+        /// Disable ic() and IceFormat() functions.
+        /// ic() will print nothing but still returns original value; IceFormat() will return an empty string.
+        /// </summary>
         public static void Disable()
         {
-            _enabled = false;
+            Enabled = false;
         }
 
-        public static string IceFormat<T>(T value, string label = null, [CallerMemberName] string memberName = "",
-            [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "", [CallerArgumentExpression("value")] string arg = null)
+        /// <summary>
+        /// Toggle contexts including file path, line number, timestamp, calling member name.
+        /// Default is true.
+        /// </summary>
+        /// <param name="includeContext"></param>
+        public static void SetIncludeContext(bool includeContext)
         {
-            return IceFormatInternal(value, label, memberName, lineNumber, filePath, arg);
+            Settings.IncludeContext = includeContext;
         }
 
-        public static T ic<T>(T value, string label = null, [CallerMemberName] string memberName = "",
-            [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "", [CallerArgumentExpression("value")] string arg = null)
+        /// <summary>
+        /// Set prefix for ic() and IceFormat() functions.
+        /// </summary>
+        public static void SetPrefix(string prefix)
         {
-            return IcInternal(value, label, memberName, lineNumber, filePath, arg);
+            Settings.Prefix = prefix;
+        }
+
+        /// <summary>
+        /// Toggle whether to use absolute path or file name only in context.
+        /// Default is false.
+        /// </summary>
+        public static void SetUseAbsPath(bool useAbsPath)
+        {
+            Settings.UseAbsPath = useAbsPath;
+        }
+
+        /// <summary>
+        /// Set output action for ic() function.
+        /// Default is Console.WriteLine.
+        /// </summary>
+        public static void SetOutputAction(Action<string> outputAction)
+        {
+            Settings.OutputAction = outputAction;
+        }
+
+        /// <summary>
+        /// Set function to convert argument value to string.
+        /// Default is JsonConvert.SerializeObject(value, new StringEnumConverter()).
+        /// </summary>
+        public static void SetArgToStringFunction(Func<object, string> argToStringFunction)
+        {
+            Settings.ArgToStringFunction = argToStringFunction;
+        }
+
+        /// <summary>
+        /// Set console encoding. Default is Encoding.UTF8.
+        /// </summary>
+        public static void SetConsoleEncoding(Encoding encoding)
+        {
+            Settings.ConsoleEncoding = encoding;
         }
     }
 }

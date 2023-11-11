@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -8,38 +7,44 @@ namespace icecream
 {
     internal static class IceCreamCore
     {
-        internal static IceCreamSettings _settings = new IceCreamSettings();
-        internal static bool _enabled = true;
+        internal static bool Enabled { get; set; } = true;
+        internal static IceCreamSettings Settings { get; set; } = new IceCreamSettings();
 
-        private static string BuildContext(string memberName = "", int lineNumber = 0, string filePath = "")
+        private static string BuildContext(
+            string memberName = "",
+            int lineNumber = 0,
+            string filePath = "")
         {
-            if (!_settings.IncludeContext) return string.Empty;
+            if (!Settings.IncludeContext) return string.Empty;
             var timestamp = DateTime.Now.ToString("HH:mm:ss.fff");
-            filePath = _settings.UseAbsPath ? filePath : Path.GetFileName(filePath);
+            filePath = Settings.UseAbsPath || string.IsNullOrEmpty(filePath)
+                ? filePath
+                : Path.GetFileName(filePath);
             var context = $"{filePath}:{lineNumber} in {memberName}() at {timestamp} - ";
             return context;
         }
 
-        private static string BuildLabel(string arg, string label)
+        private static string BuildArgName(string arg)
         {
-            var labelPart = label != null ? $"{label}: " : string.IsNullOrEmpty(arg) ? string.Empty : $"{arg}: ";
-            return labelPart;
+            return string.IsNullOrEmpty(arg)
+                ? string.Empty
+                : $"{arg}:";
         }
 
         private static string BuildPrefix()
         {
-            var prefixPart = _settings.Prefix ?? string.Empty;
+            var prefixPart = Settings.Prefix ?? string.Empty;
             return prefixPart;
         }
 
-        private static string GetNativeValues<T>(T value)
+        private static string ArgValueToString<T>(T value)
         {
             string values;
             try
             {
-                values = _settings.ArgToStringFunction == null
+                values = Settings.ArgToStringFunction == null
                     ? JsonConvert.SerializeObject(value, new StringEnumConverter())
-                    : _settings.ArgToStringFunction(value);
+                    : Settings.ArgToStringFunction(value);
             }
             catch (Exception e)
             {
@@ -49,81 +54,46 @@ namespace icecream
             return values;
         }
 
-        private static IEnumerable<Tuple<ConsoleColor?, string>> GetValuesWithColor<T>(T value)
-        {
-            var values = GetNativeValues(value);
-            return IceCreamColoring.ConvertJsonIntoList(values, _settings.FieldColor, _settings.ValueColor);
-        }
-
         internal static string IceFormatInternal<T>(T value, string label = null, string memberName = "",
             int lineNumber = 0, string filePath = "", string arg = null)
         {
-            if (!_enabled)
+            if (!Enabled)
             {
-                return string.Empty;
+                return "";
             }
 
             var contextPart = BuildContext(memberName, lineNumber, filePath);
-            var labelPart = BuildLabel(arg, label);
+            var labelAndArgPart = BuildArgName(arg);
             var prefixPart = BuildPrefix();
-            var output = $"{prefixPart}{contextPart}{labelPart}{GetNativeValues(value)}";
+            var output = $"{prefixPart}{contextPart}{labelAndArgPart}{ArgValueToString(value)}";
             return output;
         }
 
         internal static T IcInternal<T>(T value, string label = null, string memberName = "",
             int lineNumber = 0, string filePath = "", string arg = null)
         {
-            if (!_enabled)
+            if (!Enabled)
             {
                 return value;
             }
 
-            Console.OutputEncoding = _settings.Encoding;
-            Console.InputEncoding = _settings.Encoding;
+            Console.OutputEncoding = Settings.ConsoleEncoding;
+            Console.InputEncoding = Settings.ConsoleEncoding;
 
             var contextPart = BuildContext(memberName, lineNumber, filePath);
-            var labelPart = BuildLabel(arg, label);
+            var labelAndArgPart = BuildArgName(arg);
             var prefixPart = BuildPrefix();
-
-            if (_settings.OutputAction != null || _settings.ArgToStringFunction != null)
+            var labelPart = string.IsNullOrEmpty(label)
+                ? string.Empty
+                : $", label:{label}";
+            var output = $"{prefixPart}{contextPart}{labelAndArgPart}{ArgValueToString(value)}{labelPart}";
+            try
             {
-                var output = $"{prefixPart}{contextPart}{labelPart}{GetNativeValues(value)}";
-                if (_settings.OutputAction != null)
-                {
-                    try
-                    {
-                        _settings.OutputAction(output);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine($"OutputFunction failed to process output: {output}, error: {e}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine(output);
-                }
+                Settings.OutputAction(output);
             }
-            else
+            catch (Exception e)
             {
-                // Write to console with colors thread-safely
-                lock (Console.Out)
-                {
-                    Console.Write($"{prefixPart}{contextPart}");
-                    Console.ForegroundColor = _settings.LabelColor ?? Console.ForegroundColor;
-                    Console.Write(labelPart);
-                    Console.ResetColor();
-                    foreach (var kvp in GetValuesWithColor(value))
-                    {
-                        var color = kvp.Item1;
-                        var text = kvp.Item2;
-                        Console.ForegroundColor = color ?? Console.ForegroundColor;
-                        Console.Write(text);
-                        Console.ResetColor();
-                    }
-
-                    Console.WriteLine();
-                }
+                Console.WriteLine($"OutputFunction failed to process output: {output}, error: {e}");
             }
 
             return value;

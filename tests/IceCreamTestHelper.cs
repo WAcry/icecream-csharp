@@ -1,23 +1,29 @@
-﻿using icecream;
+using icecream;
 
 namespace tests
 {
-    public static class IceCreamTestHelper
+    internal static class IceCreamTestHelper
     {
         public const string FileName = "IceCreamTestHelper.cs";
-        public const int IcLineNum = 15;
-        public const string IcFuncName = "Ic()";
-        public const int FormatLineNum = 20;
-        public const string FormatFuncName = "IceFormat()";
+        public const string ArgName = "Wrapper(arg)";
+        public const int IcLineNum = 16;
+        public const string IcFuncName = "DoIc()";
+        public const int FormatLineNum = 21;
+        public const string FormatFuncName = "DoIceFormat()";
 
-        public static T Ic<T>(T arg, string label = null)
+        internal static T DoIc<T>(T arg, string label = null)
         {
-            return label == null ? arg.ic() : arg.ic(label);
+            return label == null ? Wrapper(arg).ic() : Wrapper(arg).ic(label);
         }
 
-        public static string IceFormat<T>(T arg, string label = null)
+        internal static string DoIceFormat<T>(T arg, string label = null)
         {
-            return label == null ? arg.IceFormat() : arg.IceFormat(label);
+            return label == null ? Wrapper(arg).IceFormat() : Wrapper(arg).IceFormat(label);
+        }
+
+        private static T Wrapper<T>(T arg)
+        {
+            return arg;
         }
     }
 }

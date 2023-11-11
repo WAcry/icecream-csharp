@@ -3,7 +3,7 @@
     <PropertyGroup>
         <PackageId>icecream</PackageId>
         <PackageReleaseNotes>README Badge Update</PackageReleaseNotes>
-        <Version>2.1.1</Version>
+        <Version>3.0.0</Version>
         <Title>icecream</Title>
         <Authors>Ziyuan(David) Zhang</Authors>
         <Owners>Ziyuan(David) Zhang</Owners>
@@ -18,9 +18,10 @@
         <PackageTags>icecream</PackageTags>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <OutputType>Library</OutputType>
-<!--        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>-->
-        <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net5.0;net45;netcoreapp3.1;netstandard2.0</TargetFrameworks>
-        <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+<!--        <OutputType>Exe</OutputType>-->
+<!--        <TargetFramework>net6.0</TargetFramework>-->
+        <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net5.0;netcoreapp3.1;net45;netstandard2.0</TargetFrameworks>
+        <TargetFramework Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFramework>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Copyright>Copyright (c) 2023 Ziyuan(David) Zhang</Copyright>
         <AssemblyTitle>icecream</AssemblyTitle>
@@ -28,7 +29,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="[9.0.1,]"/>
+        <PackageReference Include="Newtonsoft.Json" Version="*" />
         <None Include="README.md" Pack="true" PackagePath="." Visible="true"/>
         <None Include="LICENSE" Pack="true" PackagePath="." Visible="true"/>
     </ItemGroup>
