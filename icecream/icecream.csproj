@@ -3,7 +3,7 @@
     <PropertyGroup>
         <PackageId>icecream</PackageId>
         <PackageReleaseNotes>v3 release</PackageReleaseNotes>
-        <Version>3.0.1</Version>
+        <Version>3.0.2</Version>
         <Title>icecream</Title>
         <Authors>Ziyuan(David) Zhang</Authors>
         <Owners>Ziyuan(David) Zhang</Owners>
