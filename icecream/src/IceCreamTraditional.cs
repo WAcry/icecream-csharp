@@ -1,130 +1,57 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Runtime.CompilerServices;
 using static icecream.IceCreamCore;
 
-namespace icecream
+namespace icecream;
+
+public static class IceCreamTraditional
 {
-    public static class IceCreamTraditional
+    /// <summary>
+    /// This function is like .ic() but the output is returned as a string instead of being printed to the console.
+    /// Call this function after the value you want to print. (e.g. "Hello".IceFormat())
+    /// A label parameter can be passed to label the output. (e.g. "Hello".IceFormat("greeting"))
+    /// </summary>
+    public static string IceFormat<T>(
+        T value,
+        string label = null,
+        [CallerMemberName] string memberName = "",
+        [CallerLineNumber] int lineNumber = 0,
+        [CallerFilePath] string filePath = ""
+#if NETFRAMEWORK || NETSTANDARD
+#else
+        , [CallerArgumentExpression("value")] string arg = null
+#endif
+    )
     {
-        /// <summary>
-        /// This function is like .ic() but the output is returned as a string instead of being printed to the console.
-        /// Call this function after the value you want to print. (e.g. "Hello".IceFormat())
-        /// A label parameter can be passed to label the output. (e.g. "Hello".IceFormat("greeting"))
-        /// </summary>
-        public static string IceFormat<T>(
-            T value,
-            string label = null,
-            [CallerMemberName] string memberName = "",
-            [CallerLineNumber] int lineNumber = 0,
-            [CallerFilePath] string filePath = ""
+        return IceFormatInternal(value, label, memberName, lineNumber, filePath
 #if NETFRAMEWORK || NETSTANDARD
 #else
-            , [CallerArgumentExpression("value")] string arg = null
+            , arg
 #endif
-        )
-        {
-            return IceFormatInternal(value, label, memberName, lineNumber, filePath
+        );
+    }
+
+    /// <summary>
+    /// This function prints the value with context to the console and returns the original value.
+    /// Call this function after the value you want to print. (e.g. "Hello".ic())
+    /// A label parameter can be passed to label the output. (e.g. "Hello".ic("greeting"))
+    /// </summary>
+    public static T ic<T>(
+        T value,
+        string label = null,
+        [CallerMemberName] string memberName = "",
+        [CallerLineNumber] int lineNumber = 0,
+        [CallerFilePath] string filePath = ""
 #if NETFRAMEWORK || NETSTANDARD
 #else
-                , arg
+        , [CallerArgumentExpression("value")] string arg = null
 #endif
-            );
-        }
-
-        /// <summary>
-        /// This function prints the value with context to the console and returns the original value.
-        /// Call this function after the value you want to print. (e.g. "Hello".ic())
-        /// A label parameter can be passed to label the output. (e.g. "Hello".ic("greeting"))
-        /// </summary>
-        public static T ic<T>(
-            T value,
-            string label = null,
-            [CallerMemberName] string memberName = "",
-            [CallerLineNumber] int lineNumber = 0,
-            [CallerFilePath] string filePath = ""
+    )
+    {
+        return IcInternal(value, label, memberName, lineNumber, filePath
 #if NETFRAMEWORK || NETSTANDARD
 #else
-            , [CallerArgumentExpression("value")] string arg = null
+            , arg
 #endif
-        )
-        {
-            return IcInternal(value, label, memberName, lineNumber, filePath
-#if NETFRAMEWORK || NETSTANDARD
-#else
-                , arg
-#endif
-            );
-        }
-
-        /// <summary>
-        /// Enable ic() and IceFormat() functions.
-        /// </summary>
-        public static void Enable()
-        {
-            Enabled = true;
-        }
-
-        /// <summary>
-        /// Disable ic() and IceFormat() functions.
-        /// ic() will print nothing but still returns original value; IceFormat() will return an empty string.
-        /// </summary>
-        public static void Disable()
-        {
-            Enabled = false;
-        }
-
-        /// <summary>
-        /// Toggle contexts including file path, line number, timestamp, calling member name.
-        /// Default is true.
-        /// </summary>
-        /// <param name="includeContext"></param>
-        public static void SetIncludeContext(bool includeContext)
-        {
-            Settings.IncludeContext = includeContext;
-        }
-
-        /// <summary>
-        /// Set prefix for ic() and IceFormat() functions.
-        /// </summary>
-        public static void SetPrefix(string prefix)
-        {
-            Settings.Prefix = prefix;
-        }
-
-        /// <summary>
-        /// Toggle whether to use absolute path or file name only in context.
-        /// Default is false.
-        /// </summary>
-        public static void SetUseAbsPath(bool useAbsPath)
-        {
-            Settings.UseAbsPath = useAbsPath;
-        }
-
-        /// <summary>
-        /// Set output action for ic() function.
-        /// Default is Console.WriteLine.
-        /// </summary>
-        public static void SetOutputAction(Action<string> outputAction)
-        {
-            Settings.OutputAction = outputAction;
-        }
-
-        /// <summary>
-        /// Set function to convert argument value to string.
-        /// Default is JsonConvert.SerializeObject(value, new StringEnumConverter()).
-        /// </summary>
-        public static void SetArgToStringFunction(Func<object, string> argToStringFunction)
-        {
-            Settings.ArgToStringFunction = argToStringFunction;
-        }
-
-        /// <summary>
-        /// Set console encoding. Default is Encoding.UTF8.
-        /// </summary>
-        public static void SetConsoleEncoding(Encoding encoding)
-        {
-            Settings.ConsoleEncoding = encoding;
-        }
+        );
     }
 }
