@@ -63,11 +63,7 @@ namespace icecream
                 $"{Green}" +
                 $"{lineNumber}" +
                 $"{ResetColor}" +
-                $" " +
-                $"{Red}" +
-                $"in" +
-                $"{ResetColor}" +
-                $" " +
+                $" in " +
                 $"{Purple}" +
                 $"{memberName}()" +
                 $"{ResetColor}" +
@@ -85,7 +81,7 @@ namespace icecream
         {
             if (string.IsNullOrEmpty(arg)) return string.Empty;
             return
-                $"{Green}" +
+                $"{Red}" +
                 $"{arg}" +
                 $"{ResetColor}" +
                 $": ";
