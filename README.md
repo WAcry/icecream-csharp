@@ -65,7 +65,7 @@ Prints as:
 🍧| Program.cs:5 in Main() at 00:00:00.000
 🍧| Program.cs:6 in Main() at 00:00:00.000 x: 1
 🍧| Program.cs:7 in Main() at 00:00:00.000 foo(foo(2)): 4 label: call foo twice
-🍧| Program.cs:8 in Main() at 00:00:00.000 x: 1, label: ic() label: returns the original value
+🍧| Program.cs:8 in Main() at 00:00:00.000 x: 1, label: ic() returns the original value
 🍧| Program.cs:9 in Main() at 00:00:00.000 (y, dict): {'Item1': 4, 'Item2': {'a': 1, '2': "b"}} label: multiple values
 ```
 
