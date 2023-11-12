@@ -53,6 +53,7 @@ namespace tests
         {
             // Reset the settings to default
             IceCream.ResetSettings();
+            IceCream.SetUseColor(false);
 
             // Redirect the console output for each test
             _originalOutput = Console.Out;
@@ -94,21 +95,21 @@ namespace tests
             // Arrange
             var anonymousObject = new { a = 1, b = "2", c = new { d = 3, e = new { f = 4 } } };
             var expectedPrefixAndContext =
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {IceCreamTestHelper.ArgName}:";
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} {IceCreamTestHelper.ArgName}: ";
             var expectedOutputs = new[]
             {
-                $"\"{_str}\"",
-                $"{_num}",
-                $"{_dbl}",
-                $"{_boolean.ToString().ToLower()}",
-                $"{{\"a\":1,\"b\":\"2\",\"c\":{{\"d\":3,\"e\":{{\"f\":4}}}}}}",
-                $"{{\"a\":1,\"b\":\"2\",\"c\":{{\"d\":3,\"e\":{{\"f\":4}}}},\"d\":{{\"test\":{{\"PublicInt\":2,\"PublicString\":\"public\"}}}}}}",
-                $"[1,\"2\",{{\"d\":3,\"e\":{{\"f\":4}}}},{{\"PublicInt\":2,\"PublicString\":\"public\"}}]",
-                $"[\"a\",\"b\",\"c\"]",
-                $"{{\"Key\":\"a\",\"Value\":1}}",
-                $"{{\"PublicInt\":2,\"PublicString\":\"public\"}}",
-                $"\"A\"",
-                $"{{\"a\":1,\"b\":\"2\",\"c\":{{\"d\":3,\"e\":{{\"f\":4}}}}}}"
+                $"\"{_str}\"", 
+                $"{_num}", 
+                $"{_dbl}", 
+                $"{_boolean.ToString().ToLower()}", 
+                $"{{\'a\': 1, \'b\': \"2\", \'c\': {{\'d\': 3, \'e\': {{\'f\': 4}}}}}}", 
+                $"{{\'a\': 1, \'b\': \"2\", \'c\': {{\'d\': 3, \'e\': {{\'f\': 4}}}}, \'d\': {{\'test\': {{\'PublicInt\': 2, \'PublicString\': \"public\"}}}}}}", 
+                $"[1, \"2\", {{\'d\': 3, \'e\': {{\'f\': 4}}}}, {{\'PublicInt\': 2, \'PublicString\': \"public\"}}]", 
+                $"[\"a\", \"b\", \"c\"]", 
+                $"{{\'Key\': \"a\", \'Value\': 1}}", 
+                $"{{\'PublicInt\': 2, \'PublicString\': \"public\"}}", 
+                $"\"A\"", 
+                $"{{\'a\': 1, \'b\': \"2\", \'c\': {{\'d\': 3, \'e\': {{\'f\': 4}}}}}}", 
             };
 
             var inputValues = new object[]
@@ -133,21 +134,21 @@ namespace tests
             // Arrange
             var anonymousObject = new { a = 1, b = "2", c = new { d = 3, e = new { f = 4 } } };
             var expectedPrefixAndContext =
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - {IceCreamTestHelper.ArgName}:";
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} {IceCreamTestHelper.ArgName}: ";
             var expectedOutputs = new[]
             {
-                $"\"{_str}\"",
-                $"{_num}",
-                $"{_dbl}",
-                $"{_boolean.ToString().ToLower()}",
-                $"{{\"a\":1,\"b\":\"2\",\"c\":{{\"d\":3,\"e\":{{\"f\":4}}}}}}",
-                $"{{\"a\":1,\"b\":\"2\",\"c\":{{\"d\":3,\"e\":{{\"f\":4}}}},\"d\":{{\"test\":{{\"PublicInt\":2,\"PublicString\":\"public\"}}}}}}",
-                $"[1,\"2\",{{\"d\":3,\"e\":{{\"f\":4}}}},{{\"PublicInt\":2,\"PublicString\":\"public\"}}]",
-                $"[\"a\",\"b\",\"c\"]",
-                $"{{\"Key\":\"a\",\"Value\":1}}",
-                $"{{\"PublicInt\":2,\"PublicString\":\"public\"}}",
-                $"\"A\"",
-                $"{{\"a\":1,\"b\":\"2\",\"c\":{{\"d\":3,\"e\":{{\"f\":4}}}}}}",
+                $"\"{_str}\"", 
+                $"{_num}", 
+                $"{_dbl}", 
+                $"{_boolean.ToString().ToLower()}", 
+                $"{{\'a\': 1, \'b\': \"2\", \'c\': {{\'d\': 3, \'e\': {{\'f\': 4}}}}}}", 
+                $"{{\'a\': 1, \'b\': \"2\", \'c\': {{\'d\': 3, \'e\': {{\'f\': 4}}}}, \'d\': {{\'test\': {{\'PublicInt\': 2, \'PublicString\': \"public\"}}}}}}", 
+                $"[1, \"2\", {{\'d\': 3, \'e\': {{\'f\': 4}}}}, {{\'PublicInt\': 2, \'PublicString\': \"public\"}}]", 
+                $"[\"a\", \"b\", \"c\"]", 
+                $"{{\'Key\': \"a\", \'Value\': 1}}", 
+                $"{{\'PublicInt\': 2, \'PublicString\': \"public\"}}", 
+                $"\"A\"", 
+                $"{{\'a\': 1, \'b\': \"2\", \'c\': {{\'d\': 3, \'e\': {{\'f\': 4}}}}}}", 
             };
 
             var inputValues = new object[]
@@ -169,7 +170,7 @@ namespace tests
         public void Ic_UseLabel_ShouldHaveLabelWriteToConsole()
         {
             var expectedOutput =
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} - {IceCreamTestHelper.ArgName}:\"{_str}\", label:Label";
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.IcLineNum} in {IceCreamTestHelper.IcFuncName} at {_defaultTimestamp} {IceCreamTestHelper.ArgName}: \"{_str}\" label: Label";
             IceCreamTestHelper.DoIc(_str, "Label");
             var consoleOutput = UpdateTimeStamp(_output.ToString().Trim());
             _output.GetStringBuilder().Clear();
@@ -184,7 +185,7 @@ namespace tests
                 $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - \"{_str}\"";
 #else
             var expectedOutput =
-                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} - {IceCreamTestHelper.ArgName}:\"{_str}\"";
+                $"{_defaultPrefix}{IceCreamTestHelper.FileName}:{IceCreamTestHelper.FormatLineNum} in {IceCreamTestHelper.FormatFuncName} at {_defaultTimestamp} {IceCreamTestHelper.ArgName}: \"{_str}\" label: Label";
 #endif
             var formatted = IceCreamTestHelper.DoIceFormat(_str, "Label");
             var consoleOutput = UpdateTimeStamp(formatted.Trim());
@@ -220,7 +221,7 @@ namespace tests
 #if NETFRAMEWORK || NETSTANDARD
             Assert.That(_output.ToString().Trim(), Is.EqualTo("Prefix>2, label:Label"));
 #else
-            Assert.That(_output.ToString().Trim(), Is.EqualTo("Prefix> (1 + 1) / 2:1, label:Label"));
+            Assert.That(_output.ToString().Trim(), Is.EqualTo("Prefix> (1 + 1) / 2: 1 label: Label"));
 #endif
             Assert.That(x, Is.EqualTo(1));
         }
@@ -231,7 +232,7 @@ namespace tests
             // Arrange
             IceCream.SetPrefix("Prefix>");
             IceCream.SetIncludeContext(false);
-            IceCream.SetArgToStringFunction(o => $"str:{o.ToString()}");
+            IceCream.SetArgToStringFunction(o => $"str: {o.ToString()}");
 
             // Act
             var one = 1;
@@ -241,7 +242,7 @@ namespace tests
 #if NETFRAMEWORK || NETSTANDARD
             Assert.That(_output.ToString().Trim(), Is.EqualTo("Prefix>str:1, label:Label"));
 #else
-            Assert.That(_output.ToString().Trim(), Is.EqualTo("Prefix>one:str:1, label:Label"));
+            Assert.That(_output.ToString().Trim(), Is.EqualTo("Prefix>one: str: 1 label: Label"));
 #endif
         }
 
@@ -254,26 +255,26 @@ namespace tests
             IceCream.SetArgToStringFunction(o => throw new Exception("Test"));
 
             // Act & Assert
-            1.ic("Label");
+            1.ic();
 
             // Assert
 #if NETFRAMEWORK || NETSTANDARD
             StringAssert.StartsWith("Prefix>ArgToStringFunction failed to serialize value, error:",
                 _output.ToString().Trim());
 #else
-            StringAssert.StartsWith("Prefix>1:ArgToStringFunction failed to serialize value, error:",
+            StringAssert.StartsWith("Prefix>1: ArgToStringFunction failed to serialize value, error:",
                 _output.ToString().Trim());
 #endif
             _output.GetStringBuilder().Clear();
         }
 
         [Test]
-        public void ConfigureOutput_SetOutputFunction()
+        public void ConfigureOutput_SetOutputAction()
         {
             // Arrange
             IceCream.SetPrefix("Prefix>");
             IceCream.SetIncludeContext(false);
-            IceCream.SetOutputAction(s => Console.WriteLine($"Output:{s}"));
+            IceCream.SetOutputAction(s => Console.WriteLine($"Output: {s}"));
 
             // Act
             1.ic("Label");
@@ -282,13 +283,13 @@ namespace tests
 #if NETFRAMEWORK || NETSTANDARD
             Assert.That(_output.ToString().Trim(), Is.EqualTo("Output:Prefix>1, label:Label"));
 #else
-            Assert.That(_output.ToString().Trim(), Is.EqualTo("Output:Prefix>1:1, label:Label"));
+            Assert.That(_output.ToString().Trim(), Is.EqualTo("Output: Prefix>1: 1 label: Label"));
 #endif
             _output.GetStringBuilder().Clear();
         }
 
         [Test]
-        public void ConfigureOutput_OutputFunctionThrowsException()
+        public void ConfigureOutput_OutputActionThrowsException()
         {
             // Arrange
             IceCream.SetPrefix("Prefix>");
@@ -299,7 +300,7 @@ namespace tests
             var x = 1.ic("Label");
 
             // Assert
-            StringAssert.StartsWith("OutputFunction failed to process output:",
+            StringAssert.StartsWith("OutputAction failed to process output:",
                 _output.ToString().Trim());
             _output.GetStringBuilder().Clear();
         }
@@ -323,7 +324,7 @@ namespace tests
 #if NETFRAMEWORK || NETSTANDARD
             Assert.That(_output.ToString().Trim(), Is.EqualTo("{_defaultPrefix}1, label:Label"));
 #else
-            Assert.That(_output.ToString().Trim(), Is.EqualTo($"{_defaultPrefix}1:1, label:Label"));
+            Assert.That(_output.ToString().Trim(), Is.EqualTo($"{_defaultPrefix}1: 1 label: Label"));
 #endif
             _output.GetStringBuilder().Clear();
             IceCream.Enable();
@@ -331,7 +332,7 @@ namespace tests
 #if NETFRAMEWORK || NETSTANDARD
             Assert.That(_output.ToString().Trim(), Is.EqualTo("{_defaultPrefix}1, label:Label"));
 #else
-            Assert.That(_output.ToString().Trim(), Is.EqualTo($"{_defaultPrefix}1:1, label:Label"));
+            Assert.That(_output.ToString().Trim(), Is.EqualTo($"{_defaultPrefix}1: 1 label: Label"));
 #endif
             _output.GetStringBuilder().Clear();
         }

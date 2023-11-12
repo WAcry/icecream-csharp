@@ -1,7 +1,7 @@
 # ![Logo](https://raw.githubusercontent.com/WAcry/icecream-csharp/main/logo.png) icecream-csharp
 
 [![NuGet version (icecream)](https://img.shields.io/nuget/v/icecream.svg?style=flat-square)](https://www.nuget.org/packages/icecream)
-[![Build status](https://github.com/WAcry/icecream-csharp/actions/workflows/ci.yml/badge.svg)](https://github.com/WAcry/icecream-csharp/actions/workflows/build-and-test.yml)
+[![Build status](https://github.com/WAcry/icecream-csharp/actions/workflows/ci.yml/badge.svg)](https://github.com/WAcry/icecream-csharp/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/WAcry/icecream-csharp/blob/master/LICENSE)
 [![.NET](https://img.shields.io/badge/sdk.version-.NET%3E5.0%20%7C%20.NET%20Core%203.1%20%7C%20.NET%20Standard%202.0%20%7C%20.NET%20Framework%204.5-blue)](https://dotnet.microsoft.com/en-us/)
 
@@ -20,6 +20,7 @@ do. IceCream, or `ic` for short, makes print debugging a little sweeter.
    to your specific needs.
 5. Output Customization: You can further customize the debugging output by adding labels, prefixes, and more to suit
    your preferences.
+6. Readability: IceCream is syntax colored and reformatted to make it easier to read.
 
 IceCream is well tested, [permissively licensed](LICENSE), and
 supports .NET 5.0, .NET Core 3.1, .NET Standard 2.0, and .NET Framework 4.5.
@@ -41,7 +42,7 @@ $ dotnet add package icecream
 After the package is installed, import it in your code.
 
 ```csharp
-using icecream;
+using static icecream.IceCream;
 ```
 
 ### Quick Start
@@ -49,8 +50,9 @@ using icecream;
 ```csharp
 int foo(int x) => x + 1;
 var x = 1;
-var dict = new Dictionary<string, int> { { "a", 1 }, { "b", 2 } };
+var dict = new Dictionary<object, object> { { "a", 1 }, { 2, "b" } };
 
+ic();
 x.ic();
 foo(foo(2)).ic("call foo twice");
 var y = foo(x.ic("ic() returns the original value")) * 2;
@@ -60,10 +62,11 @@ var y = foo(x.ic("ic() returns the original value")) * 2;
 Prints as:
 
 ```
-🍧| Program.cs:5 in Main() at 00:00:00.000 - x:1
-🍧| Program.cs:6 in Main() at 00:00:00.000 - foo(foo(2)):4, label:call foo twice
-🍧| Program.cs:7 in Main() at 00:00:00.000 - x:1, label: ic() returns the original value
-🍧| Program.cs:8 in Main() at 00:00:00.000 - (y, dict):{"Item1":4,"Item2":{"a":1,"b":2}}, label:multiple values
+🍧| Program.cs:5 in Main() at 00:00:00.000
+🍧| Program.cs:6 in Main() at 00:00:00.000 x: 1
+🍧| Program.cs:7 in Main() at 00:00:00.000 foo(foo(2)): 4 label: call foo twice
+🍧| Program.cs:8 in Main() at 00:00:00.000 x: 1, label: ic() returns the original value
+🍧| Program.cs:9 in Main() at 00:00:00.000 (y, dict): {'Item1': 4, 'Item2': {'a': 1, '2': "b"}} label: multiple values
 ```
 
 As you may noticed, you can add `.ic()` almost ANYWHERE and have no impact on the code logic because it returns the original
@@ -102,18 +105,18 @@ testEnum = TestEnum.A;
 ```
 
 ```
-🍧| Program.cs:1 in Main() at 00:00:00.000 - str:"abc"
-🍧| Program.cs:2 in Main() at 00:00:00.000 - num:123
-🍧| Program.cs:3 in Main() at 00:00:00.000 - dbl:123.456
-🍧| Program.cs:4 in Main() at 00:00:00.000 - boolean:true
-🍧| Program.cs:5 in Main() at 00:00:00.000 - obj:{"a":1,"b":"2","c":{"d":3,"e":{"f":4}}}
-🍧| Program.cs:6 in Main() at 00:00:00.000 - dict:{"a":1,"b":"2","c":{"d":3,"e":{"f":4}},"d":{"test":{"a":1,"b":"2"}}}
-🍧| Program.cs:7 in Main() at 00:00:00.000 - list:[1,"2",{"d":3,"e":{"f":4}},{"a":1,"b":"2"}]
-🍧| Program.cs:8 in Main() at 00:00:00.000 - arr:["a","b","c"]
-🍧| Program.cs:9 in Main() at 00:00:00.000 - kvp:{"Key":"a","Value":1}
-🍧| Program.cs:10 in Main() at 00:00:00.000 - tuple:{"Item1":1,"Item2":3.14,"Item3":true,"Item4":{"a":1,"b":"2"}}
-🍧| Program.cs:11 in Main() at 00:00:00.000 - testClass:{"a":1,"b":"2"}
-🍧| Program.cs:12 in Main() at 00:00:00.000 - testEnum:"A"
+🍧| Program.cs:1 in Main() at 00:00:00.000 str: "abc"
+🍧| Program.cs:2 in Main() at 00:00:00.000 num: 123
+🍧| Program.cs:3 in Main() at 00:00:00.000 dbl: 123.456
+🍧| Program.cs:4 in Main() at 00:00:00.000 boolean: true
+🍧| Program.cs:5 in Main() at 00:00:00.000 obj: {'a': 1, 'b': "2", 'c': {'d': 3, 'e': {'f': 4}}}
+🍧| Program.cs:6 in Main() at 00:00:00.000 dict: {'a': 1, 'b': "2", 'c': {'d': 3, 'e': {'f': 4}}, 'd': {'test': {'a': 1, 'b': "2"}}}
+🍧| Program.cs:7 in Main() at 00:00:00.000 list: [1, "2", {'d': 3, 'e': {'f': 4}}, {'a': 1, 'b': "2"}]
+🍧| Program.cs:8 in Main() at 00:00:00.000 arr: ["a", "b", "c"]
+🍧| Program.cs:9 in Main() at 00:00:00.000 kvp: {'Key': "a", 'Value': 1}
+🍧| Program.cs:10 in Main() at 00:00:00.000 tuple: {'Item1': 1, 'Item2': 3.14, 'Item3': true, 'Item4': {'a': 1, 'b': "2"}}
+🍧| Program.cs:11 in Main() at 00:00:00.000 testClass: {'a': 1, 'b': "2"}
+🍧| Program.cs:12 in Main() at 00:00:00.000 testEnum: "A"
 ```
 
 ### Logging
@@ -137,36 +140,30 @@ IceCream.Disable(); // Disable IceCream
 Here's a overview of the settings:
 
 ```csharp
- public class IceCreamSettings
- {
-     public bool IncludeContext { get; set; } = true;
-     public string Prefix { get; set; } = "\ud83c\udf67| ";
-     public bool UseAbsPath { get; set; } = false;
-     public Action<string> OutputAction { get; set; } = null;
-     public Func<object, string> ArgToStringFunction { get; set; } = null;
-     public Encoding ConsoleEncoding { get; set; } = Encoding.UTF8;
- }
+class IceCreamSettings
+{
+  bool IncludeContext { get; set; } = true;
+  string Prefix { get; set; } = "\ud83c\udf67| ";
+  bool UseAbsPath { get; set; } = false;
+  Action<string> OutputAction { get; set; } = null;
+  Func<object, string> ArgToStringFunction { get; set; } = null;
+  Encoding ConsoleEncoding { get; set; } = Encoding.UTF8;
+  bool UseColor { get; set; } = true;
+}
  ```
 
 1. `IncludeContext` (default: `true`): Whether to include context information (line number, parent function, etc.) in
    the output.
 2. `Prefix` (default: `🍧| `): The prefix of the output.
 3. `UseAbsPath` (default: `false`): Whether to use absolute path of the file or the file name only.
-4. `OutputAction` (default: `Console.WriteLine`): The action to output the result. If it is `null`, the result will be output to
-   `Console.WriteLine()` with the color set in `LabelColor`, `FieldColor` and `ValueColor`.
+4. `OutputAction` (default: reformatting, coloring, and printing action based on JsonConvert): The function handling the output.
 5. `ArgToStringFunction` (default: `obj => JsonConvert.SerializeObject(obj, new StringEnumConverter())`): The function
-   converting the object to a string. If it is `null`, the default function will be used.
+   converting the object to a string.
 6. `ConsoleEncoding` (default: `Encoding.UTF8`): The encoding of the output.
+7. `UseColor` (default: `true`): Whether to use color in the output.
 
 You can use `IceCream.SetXxx(newValue)` (e.g. `IceCream.SetPrefix("ic> ")`) to set a single setting.
-You can also use `IceCreamTraditional.SetXxx(newValue)`. They do the same thing and share the settings.
-
-### Misc
-
-#### Coloring?
-
-Coloring is possible in C# console, but there are limited color choices. Maybe I'll support coloring in the future, but
-for now I don't feel it's that useful.
+You can use `IceCream.ResetSettings()` to reset all settings to default.
 
 #### Framework
 

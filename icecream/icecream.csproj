@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <PackageId>icecream</PackageId>
-        <PackageReleaseNotes>v3 release</PackageReleaseNotes>
-        <Version>3.0.2</Version>
+        <PackageReleaseNotes>v3.1 release</PackageReleaseNotes>
+        <Version>3.1.0</Version>
         <Title>icecream</Title>
         <Authors>Ziyuan(David) Zhang</Authors>
         <Owners>Ziyuan(David) Zhang</Owners>
@@ -17,9 +17,9 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>icecream</PackageTags>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <OutputType>Library</OutputType>
 <!--        <OutputType>Exe</OutputType>-->
 <!--        <TargetFramework>net6.0</TargetFramework>-->
+        <OutputType>Library</OutputType>
         <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net7.0;net6.0;net5.0;netcoreapp3.1;net45;netstandard2.0</TargetFrameworks>
         <TargetFramework Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFramework>
         <PackageReadmeFile>README.md</PackageReadmeFile>

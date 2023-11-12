@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using static icecream.IceCreamCore;
@@ -14,7 +15,7 @@ namespace icecream
         /// </summary>
         public static string IceFormat<T>(
             this T value,
-            string label = null,
+            object label = null,
             [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0,
             [CallerFilePath] string filePath = ""
@@ -24,7 +25,7 @@ namespace icecream
 #endif
         )
         {
-            return IceFormatInternal(value, label, memberName, lineNumber, filePath
+            return IceFormatInternal(value, label?.ToString(), memberName, lineNumber, filePath
 #if NETFRAMEWORK || NETSTANDARD
 #else
                 , arg
@@ -39,7 +40,7 @@ namespace icecream
         /// </summary>
         public static T ic<T>(
             this T value,
-            string label = null,
+            object label = null,
             [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0,
             [CallerFilePath] string filePath = ""
@@ -49,12 +50,29 @@ namespace icecream
 #endif
         )
         {
-            return IcInternal(value, label, memberName, lineNumber, filePath
+            return IcInternal(value, label?.ToString(), memberName, lineNumber, filePath
 #if NETFRAMEWORK || NETSTANDARD
 #else
                 , arg
 #endif
             );
+        }
+
+        /// <summary>
+        /// This function prints current context to the console and returns the current context as a string.
+        /// Call this function directly. (e.g. ic())
+        /// A label parameter can be passed to label the output. (e.g. ic("greeting"))
+        /// </summary>
+        public static string ic()
+        {
+            // use StackTrace to avoid conflict with IceCreamTraditional
+            var st = new StackTrace(new StackFrame(1, true));
+            var sf = st.GetFrame(0);
+            var filePath = sf?.GetFileName() ?? "";
+            var lineNumber = sf?.GetFileLineNumber() ?? 0;
+            var memberName = sf?.GetMethod()?.Name ?? "";
+
+            return IcSimple(memberName, lineNumber, filePath);
         }
 
         /// <summary>
@@ -99,6 +117,11 @@ namespace icecream
         public static void SetUseAbsPath(bool useAbsPath)
         {
             Settings.UseAbsPath = useAbsPath;
+        }
+
+        public static void SetUseColor(bool useColor)
+        {
+            Settings.UseColor = useColor;
         }
 
         /// <summary>

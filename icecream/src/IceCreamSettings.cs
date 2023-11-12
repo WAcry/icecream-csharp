@@ -13,13 +13,11 @@ namespace icecream
 
         public bool UseAbsPath { get; set; } = false;
 
-        public Action<string> OutputAction { get; set; } = Console.WriteLine;
+        public Action<string> OutputAction { get; set; } = null;
 
-        public Func<object, string> ArgToStringFunction { get; set; } =
-            value => JsonConvert.SerializeObject
-                (value, new StringEnumConverter());
+        public Func<object, string> ArgToStringFunction { get; set; } = null;
 
-        private string StylePath { get; set; } = null;
+        public bool UseColor { get; set; } = true;
 
         public Encoding ConsoleEncoding { get; set; } = Encoding.UTF8;
     }
