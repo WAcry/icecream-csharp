@@ -7,20 +7,22 @@
 
 ### IceCream — Never use Console to debug again
 
+This C# library is inspired by [icecream-python](https://github.com/gruns/icecream).
+
 Do you ever use `Console.WriteLine()` to debug your code? Of course you
 do. IceCream, or `ic` for short, makes print debugging a little sweeter.
 
 `.ic()` is like `print()` in Python, except it's better:
 
-1. Detailed Printing: IceCream prints not only values but also contextual information, including the filename,
-   timestamp, line number, label, and parent function (optional).
-2. Redesigned for C#: The tool has been redesigned to work with C#.
-3. Simplicity: IceCream is designed for simplicity and is 60% faster to use compared to other debugging tools.
-4. Flexible Configuration: You can configure various settings in IceCream to customize your debugging output according
+1. **Detailed Printing**: IceCream prints not only values but also contextual information, including the **filename,
+   timestamp, line number, label, argument name, and parent function.
+2. **Redesigned for C#**: The tool has been redesigned to work with C#.
+3. **Simplicity**: IceCream is designed for simplicity and is 60% faster to use compared to other debugging tools.
+4. **Flexible Configuration**: You can configure various settings in IceCream to customize your debugging output according
    to your specific needs.
-5. Output Customization: You can further customize the debugging output by adding labels, prefixes, and more to suit
+5. **Output Customization**: You can further customize the debugging output by adding labels, prefixes, and more to suit
    your preferences.
-6. Readability: IceCream is syntax colored and reformatted to make it easier to read.
+6. **Readability**: IceCream is syntax colored and reformatted to make it easier to read.
 
 IceCream is well tested, [permissively licensed](LICENSE), and
 supports .NET 5.0, .NET Core 3.1, .NET Standard 2.0, and .NET Framework 4.5.
@@ -61,20 +63,16 @@ var y = foo(x.ic("ic() returns the original value")) * 2;
 
 Prints as:
 
-```
-🍧| Program.cs:5 in Main() at 00:00:00.000
-🍧| Program.cs:6 in Main() at 00:00:00.000 x: 1
-🍧| Program.cs:7 in Main() at 00:00:00.000 foo(foo(2)): 4 label: call foo twice
-🍧| Program.cs:8 in Main() at 00:00:00.000 x: 1, label: ic() returns the original value
-🍧| Program.cs:9 in Main() at 00:00:00.000 (y, dict): {'Item1': 4, 'Item2': {'a': 1, '2': "b"}} label: multiple values
-```
+![Coloring](https://raw.githubusercontent.com/WAcry/icecream-csharp/main/coloring.png)
 
 As you may noticed, you can add `.ic()` almost ANYWHERE and have no impact on the code logic because it returns the original
-value.
+value. 
 
 I believe `obj.ic()` is more elegant than `ic(obj)`. For example, You can easily add them with one mouse click, 
-and remove them all with `Replace All` in your IDE. However, if you really want to use the traditional way `ic(obj)` as 
-in icecream-python, you can still do it by `using static icecream.IceCreamTraditional;`.
+and remove them all with `Replace All` in your IDE. 
+
+**However, if you really want to use the traditional way `ic(obj)` as 
+in icecream-python, you can still do it by `using static icecream.IceCreamTraditional;`.**
 
 ### Print Anything
 
@@ -118,6 +116,8 @@ testEnum = TestEnum.A;
 🍧| Program.cs:11 in Main() at 00:00:00.000 testClass: {'a': 1, 'b': "2"}
 🍧| Program.cs:12 in Main() at 00:00:00.000 testEnum: "A"
 ```
+
+Due to the high compatibility of different versions of JsonConvert, and the security risks associated with older versions, it is currently required to use JsonConvert version 13 and above. If you have a specific requirement to use an older version of JsonConvert, you can compile this library yourself, and it should generally require no modifications. However, it is recommended to use version 9 or above.
 
 ### Logging
 
@@ -165,7 +165,7 @@ class IceCreamSettings
 You can use `IceCream.SetXxx(newValue)` (e.g. `IceCream.SetPrefix("ic> ")`) to set a single setting.
 You can use `IceCream.ResetSettings()` to reset all settings to default.
 
-#### Framework
+### Framework
 
 `>.NET Core 3.1` and `>.NET 5.0` are suggested. `NET Standard 2.0` and `.NET Framework 4.5` are also supported, 
 but they may not be able to print the arguments' name. (e.g. `x.ic()` may print `1` instead of `x:1`)

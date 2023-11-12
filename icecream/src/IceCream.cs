@@ -61,7 +61,6 @@ namespace icecream
         /// <summary>
         /// This function prints current context to the console and returns the current context as a string.
         /// Call this function directly. (e.g. ic())
-        /// A label parameter can be passed to label the output. (e.g. ic("greeting"))
         /// </summary>
         public static string ic()
         {
