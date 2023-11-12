@@ -154,7 +154,7 @@ class IceCreamSettings
 
 1. `IncludeContext` (default: `true`): Whether to include context information (line number, parent function, etc.) in
    the output.
-2. `Prefix` (default: `🍧| `): The prefix of the output. The default icon is shaved ice instead of soft ice cream, because shaved ice is more sharp:)
+2. `Prefix` (default: `🍧| `): The prefix of the output. The default icon is shaved ice🍧 instead of soft ice cream🍦, because shaved ice🍧 is more sharp:)
 3. `UseAbsPath` (default: `false`): Whether to use absolute path of the file or the file name only.
 4. `OutputAction` (default: reformatting, coloring, and printing action based on JsonConvert): The function handling the output.
 5. `ArgToStringFunction` (default: `obj => JsonConvert.SerializeObject(obj, new StringEnumConverter())`): The function
