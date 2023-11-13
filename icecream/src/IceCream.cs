@@ -118,14 +118,17 @@ namespace icecream
             Settings.UseAbsPath = useAbsPath;
         }
 
+        /// <summary>
+        /// Toggle whether to use color in output.
+        /// Default is true.
+        /// </summary>
         public static void SetUseColor(bool useColor)
         {
             Settings.UseColor = useColor;
         }
 
         /// <summary>
-        /// Set output action for ic() function.
-        /// Default is Console.WriteLine.
+        /// Set output action for ic() function instead of printing to the console.
         /// </summary>
         public static void SetOutputAction(Action<string> outputAction)
         {

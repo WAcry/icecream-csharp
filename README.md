@@ -5,16 +5,16 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/WAcry/icecream-csharp/blob/master/LICENSE)
 [![.NET](https://img.shields.io/badge/sdk.version-.NET%3E5.0%20%7C%20.NET%20Core%203.1%20%7C%20.NET%20Standard%202.0%20%7C%20.NET%20Framework%204.5-blue)](https://dotnet.microsoft.com/en-us/)
 
-### IceCream — Never use Console to debug again
+### IceCream — Never use Console.WriteLine() to debug again
 
 This C# library is inspired by [icecream-python](https://github.com/gruns/icecream).
 
 Do you ever use `Console.WriteLine()` to debug your code? Of course you
 do. IceCream, or `ic` for short, makes print debugging a little sweeter.
 
-`.ic()` is like `print()` in Python, except it's better:
+`ic()` is like `Console.WriteLine()`, except it's better:
 
-1. **Detailed Printing**: IceCream prints not only values but also contextual information, including the **filename,
+1. **Detailed Printing**: IceCream prints not only values but also contextual information, including the filename,
    timestamp, line number, label, argument name, and parent function.
 2. **Redesigned for C#**: The tool has been redesigned to work with C#.
 3. **Simplicity**: IceCream is designed for simplicity and is 60% faster to use compared to other debugging tools.
@@ -117,8 +117,6 @@ testEnum = TestEnum.A;
 🍧| Program.cs:12 in Main() at 00:00:00.000 testEnum: "A"
 ```
 
-Due to the high compatibility of different versions of JsonConvert, and the security risks associated with older versions, it is currently required to use JsonConvert version 13 and above. If you have a specific requirement to use an older version of JsonConvert, you can compile this library yourself, and it should generally require no modifications. However, it is recommended to use version 9 or above.
-
 ### Logging
 
 `.IceFormat()` is like `.ic()` but the output is returned as a string instead
@@ -156,7 +154,7 @@ class IceCreamSettings
    the output.
 2. `Prefix` (default: `🍧| `): The prefix of the output. The default icon is shaved ice🍧 instead of soft ice cream🍦, because shaved ice🍧 is sharper:)
 3. `UseAbsPath` (default: `false`): Whether to use absolute path of the file or the file name only.
-4. `OutputAction` (default: reformatting, coloring, and printing action based on JsonConvert): The function handling the output.
+4. `OutputAction` (default: reformatting, coloring, and printing action based on JsonConvert): The action handling the output.
 5. `ArgToStringFunction` (default: `obj => JsonConvert.SerializeObject(obj, new StringEnumConverter())`): The function
    converting the object to a string.
 6. `ConsoleEncoding` (default: `Encoding.UTF8`): The encoding of the output.

@@ -7,8 +7,8 @@ namespace icecream
     {
         /// <summary>
         /// This function is like .ic() but the output is returned as a string instead of being printed to the console.
-        /// Call this function after the value you want to print. (e.g. "Hello".IceFormat())
-        /// A label parameter can be passed to label the output. (e.g. "Hello".IceFormat("greeting"))
+        /// Call this function and pass the value you want to print. (e.g. IceFormat("Hello"))
+        /// A label parameter can be passed to label the output. (e.g. IceFormat("Hello", "greeting"))
         /// </summary>
         public static string IceFormat<T>(
             T value,
@@ -32,8 +32,8 @@ namespace icecream
 
         /// <summary>
         /// This function prints the value with context to the console and returns the original value.
-        /// Call this function after the value you want to print. (e.g. "Hello".ic())
-        /// A label parameter can be passed to label the output. (e.g. "Hello".ic("greeting"))
+        /// Call this function and pass the value you want to print. (e.g. ic("Hello"))
+        /// A label parameter can be passed to label the output. (e.g. ic("Hello", "greeting"))
         /// </summary>
         public static T ic<T>(
             T value,

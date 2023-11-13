@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace icecream
 {
-    public class IceCreamSettings
+    internal class IceCreamSettings
     {
-        public bool IncludeContext { get; set; } = true;
+        internal bool IncludeContext { get; set; } = true;
 
-        public string Prefix { get; set; } = "\ud83c\udf67| ";
+        internal string Prefix { get; set; } = "\ud83c\udf67| ";
 
-        public bool UseAbsPath { get; set; } = false;
+        internal bool UseAbsPath { get; set; } = false;
 
-        public Action<string> OutputAction { get; set; } = null;
+        internal Action<string> OutputAction { get; set; } = null;
 
-        public Func<object, string> ArgToStringFunction { get; set; } = null;
+        internal Func<object, string> ArgToStringFunction { get; set; } = null;
 
-        public bool UseColor { get; set; } = true;
+        internal bool UseColor { get; set; } = true;
 
-        public Encoding ConsoleEncoding { get; set; } = Encoding.UTF8;
+        internal Encoding ConsoleEncoding { get; set; } = Encoding.UTF8;
     }
 }

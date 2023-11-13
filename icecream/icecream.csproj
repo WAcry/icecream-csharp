@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <PackageId>icecream</PackageId>
-        <PackageReleaseNotes>v3.1.1 release</PackageReleaseNotes>
-        <Version>3.1.1</Version>
+        <PackageReleaseNotes>v3.2.0 stable release</PackageReleaseNotes>
+        <Version>3.2.0</Version>
         <Title>icecream</Title>
         <Authors>Ziyuan(David) Zhang</Authors>
         <Owners>Ziyuan(David) Zhang</Owners>
@@ -29,7 +29,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="[13.0.1,)"/>
+        <PackageReference Include="Newtonsoft.Json" Version="[9.0.1,)"/>
         <None Include="README.md" Pack="true" PackagePath="." Visible="true"/>
         <None Include="LICENSE" Pack="true" PackagePath="." Visible="true"/>
     </ItemGroup>
